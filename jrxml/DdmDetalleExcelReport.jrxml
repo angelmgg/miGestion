@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DdmDetalleExcelReport" pageWidth="575" pageHeight="1000" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="575" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="479de806-6906-4cec-88e8-7826a32ee8b2">
+	<property name="ireport.zoom" value="1.7715610000000037"/>
+	<property name="ireport.x" value="328"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\DatosAngel\\WorkspaceAxpe001\\gestion\\src\\main\\java\\com\\angelsoft\\recursos\\jrxml\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="db" class="java.lang.Long"/>
+	<field name="fnr" class="java.lang.Long"/>
+	<field name="listaCampos" class="java.util.List">
+		<fieldDescription><![CDATA[listaCampos]]></fieldDescription>
+	</field>
+	<field name="listaSuperDescriptores" class="java.util.List"/>
+	<field name="tieneFks" class="java.lang.Boolean"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="19">
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="575" height="19" isRemoveLineWhenBlank="true" uuid="03aeb2da-be70-4e3f-a576-c1a819391361"/>
+				<subreportParameter name="fnr">
+					<subreportParameterExpression><![CDATA[$F{fnr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre">
+					<subreportParameterExpression><![CDATA[$F{nombre}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="db">
+					<subreportParameterExpression><![CDATA[$F{db}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="descripcion">
+					<subreportParameterExpression><![CDATA[$F{descripcion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaCampos})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[".\\DdmCamposExcelReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="19">
+			<subreport isUsingCache="false">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="575" height="19" isRemoveLineWhenBlank="true" uuid="b15e1909-54f5-40bb-8c75-e9eecae403e7"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaSuperDescriptores})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[".\\DdmSuperExcelReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="19" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="575" height="19" uuid="a70342e3-6ca7-4d7a-ac33-fc5d3ee68292"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+	</detail>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DdmSuperExcelReport" pageWidth="575" pageHeight="19" columnWidth="575" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ea2f7cd7-fb00-4720-a65c-a6d830ada89f">
+	<property name="ireport.zoom" value="2.357947691000007"/>
+	<property name="ireport.x" value="292"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="db" class="java.lang.Long"/>
+	<parameter name="fnr" class="java.lang.Long"/>
+	<parameter name="descripcion" class="java.lang.String"/>
+	<field name="nombreCorto" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="listaDetalle" class="java.util.List"/>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="575" height="19" isRemoveLineWhenBlank="true" uuid="ad973a49-efb0-4d00-9c94-6eb1323ddb9d"/>
+				<subreportParameter name="nombre">
+					<subreportParameterExpression><![CDATA[$F{nombre}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="descripcion">
+					<subreportParameterExpression><![CDATA[$F{descripcion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombreCorto">
+					<subreportParameterExpression><![CDATA[$F{nombreCorto}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaDetalle})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[".\\SuperCamposExcelReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

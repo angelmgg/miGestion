@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PreguntaDet3Report" pageWidth="510" pageHeight="200" whenNoDataType="AllSectionsNoDetail" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ea2f7cd7-fb00-4720-a65c-a6d830ada89f">
+	<property name="ireport.zoom" value="1.9487171000000054"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha" class="java.util.Date"/>
+	<parameter name="tipo" class="java.lang.String"/>
+	<parameter name="texto" class="java.lang.String"/>
+	<field name="fecha" class="java.util.Date"/>
+	<field name="texto" class="java.lang.String"/>
+	<field name="listaPreguntas" class="java.util.List"/>
+	<field name="listaNotas" class="java.util.List"/>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="19" splitType="Stretch">
+			<textField evaluationTime="Auto" pattern="dd/MM/yyyy">
+				<reportElement stretchType="RelativeToBandHeight" x="25" y="0" width="58" height="19" uuid="011b84a1-64da-4081-be4c-46ab1292cca1"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Auto">
+				<reportElement x="83" y="0" width="427" height="19" uuid="3f5efc5e-ac5d-4645-92b1-a135db0c8a06"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tipo} + " - " +$P{texto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="83" y="0" width="427" height="19" forecolor="#3333FF" backcolor="#FFFFFF" uuid="fcdd80a5-da2e-478c-94f9-eff3349319bd"/>
+				<textElement verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single" leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="25" y="0" width="58" height="19" forecolor="#3333FF" backcolor="#FFFFFF" uuid="7d8b3137-825f-4bcc-8acd-5bc8d4a83146"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="22">
+			<printWhenExpression><![CDATA[!$F{listaPreguntas}.isEmpty()]]></printWhenExpression>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="25" y="0" width="485" height="22" isRemoveLineWhenBlank="true" uuid="edecc037-008a-40ad-9074-14c6abc25e62"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaPreguntas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[".\\PreguntaDet2Report.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="23">
+			<printWhenExpression><![CDATA[!$F{listaNotas}.isEmpty()]]></printWhenExpression>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="25" y="0" width="485" height="22" isRemoveLineWhenBlank="true" uuid="0e0d9d15-b94e-41a5-b7a9-9dcc0bdbf24c"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaNotas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[".\\PreguntaNotReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

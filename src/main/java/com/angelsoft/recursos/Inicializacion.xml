@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<INICIALIZACIONES>
+	<INICIALIZACION tabla="GC-DE-CO-SITUACION-DES">
+		<CODIGO codigo="000" descripcion="Borrador" observacion="Situación inicial en la que se pueden añadir objetos al despliegue"></CODIGO>
+		<CODIGO codigo="010" descripcion="Despliegue Preproducción pendiente "></CODIGO>
+		<CODIGO codigo="015" descripcion="Despliegue Preproducción en proceso"></CODIGO>
+		<CODIGO codigo="020" descripcion="Despliegue Preproducción exitoso"></CODIGO>
+		<CODIGO codigo="030" descripcion="Despliegue Preproducción fallido" observacion="Se produce cuando se ha intentado realizar el despliegue en Preproducción, pero se ha anulado al producirse un error y se han devuelto los objetos a la situación anterior al despliegue"></CODIGO>
+		<CODIGO codigo="040" descripcion="Despliegue Producción pendiente"></CODIGO>
+		<CODIGO codigo="045" descripcion="Despliegue Producción en proceso"></CODIGO>
+		<CODIGO codigo="050" descripcion="Despliegue Producción exitoso" observacion="Estado final cuando todo ha ido correctamente"></CODIGO>
+		<CODIGO codigo="060" descripcion="Despliegue Producción fallido" observacion="Se produce cuando se ha intentado realizar el despliegue en Producción, pero se ha anulado al producirse un error y se han devuelto los objetos a la situación anterior al despliegue"></CODIGO>
+		<CODIGO codigo="070" descripcion="Vuelta atrás Preproducción pendiente "></CODIGO>
+		<CODIGO codigo="075" descripcion="Vuelta atrás Preproducción en proceso"></CODIGO>
+		<CODIGO codigo="080" descripcion="Vuelta atrás Preproducción fallida"></CODIGO>
+		<CODIGO codigo="090" descripcion="Vuelta atrás Producción pendiente"></CODIGO>
+		<CODIGO codigo="095" descripcion="Vuelta atrás Producción en proceso"></CODIGO>
+		<CODIGO codigo="100" descripcion="Vuelta atrás Producción fallida"></CODIGO>
+		<CODIGO codigo="110" descripcion="Vuelta atrás exitosa" observacion="Estado final cuando despues de realizado un despliegue se ha anulado y se ha vuelto a la situación anterior"></CODIGO>
+		<CODIGO codigo="990" descripcion="Cancelado" observacion="Estado final cuando se ha anulado un despliegue que nunca ha llegado a desplegarse"></CODIGO>
+		<CODIGO codigo="999" descripcion="Error grave en despliegue/vuelta atrás" observacion="Situación extraordinaria cuando se produce un error no controlado que debe ser resuelto de forma manual"></CODIGO>
+	</INICIALIZACION>
+	<INICIALIZACION tabla="GC-DE-CO-ACCION-ENTIDAD">
+		<CODIGO codigo="01" descripcion="Crear objeto"></CODIGO>
+		<CODIGO codigo="02" descripcion="Modificar objeto"></CODIGO>
+		<CODIGO codigo="03" descripcion="Eliminar objeto"></CODIGO>
+	</INICIALIZACION>
+    <INICIALIZACION tabla="GC-DE-CO-TIPOS-OBJETO-NAT">
+		<CODIGO codigo="P" descripcion="Programa"></CODIGO>
+		<CODIGO codigo="N" descripcion="Subprograma"></CODIGO>
+		<CODIGO codigo="A" descripcion="Parameter"></CODIGO>
+		<CODIGO codigo="C" descripcion="Copycode"></CODIGO>
+		<CODIGO codigo="L" descripcion="Local"></CODIGO>
+		<CODIGO codigo="G" descripcion="Global"></CODIGO>
+		<CODIGO codigo="H" descripcion="Helproutine"></CODIGO>
+		<CODIGO codigo="M" descripcion="Mapa"></CODIGO>
+		<CODIGO codigo="D" descripcion="DDM"></CODIGO>
+	</INICIALIZACION>
+	<INICIALIZACION tabla="GC-DE-CO-TIPO-DESPLIEGUE">
+		<CODIGO codigo="D2E" descripcion="Desarrollo a Preproducción"></CODIGO>
+		<CODIGO codigo="E2O" descripcion="Preproducción a Producción"></CODIGO>
+		<CODIGO codigo="V2E" descripcion="Vuelta atrás en PRE"></CODIGO>
+		<CODIGO codigo="V2O" descripcion="Vuelta atrás en PRO"></CODIGO>
+	</INICIALIZACION>
+	<INICIALIZACION tabla="GC-DE-CO-TIPO-USUARIO">
+		<CODIGO codigo="AGC" descripcion="Analista GobCan"></CODIGO>
+		<CODIGO codigo="ASU" descripcion="Analista SUMA"></CODIGO>
+		<CODIGO codigo="DSU" descripcion="Desarrollador SUMA"></CODIGO>
+	</INICIALIZACION>
+	<INICIALIZACION tabla="GC-DE-CO-PERMISO">
+		<CODIGO codigo="VER" descripcion="Ver Despliegues"></CODIGO>
+		<CODIGO codigo="CRE" descripcion="VER + Crear Despliegues"></CODIGO>
+		<CODIGO codigo="PRE" descripcion="CRE + Desplegar en PRE"></CODIGO>
+		<CODIGO codigo="PRO" descripcion="PRE + Desplegar en PRO"></CODIGO>
+	</INICIALIZACION>
+	<INICIALIZACION tabla="GC-DE-CO-TIPO-COPIA">
+		<CODIGO codigo="S" descripcion="Fuente"></CODIGO>
+		<CODIGO codigo="C" descripcion="Compilado"></CODIGO>
+		<CODIGO codigo="A" descripcion="Ambos"></CODIGO>
+	</INICIALIZACION>
+</INICIALIZACIONES>

@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CUESTIONES>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160520</FECHA>
+		<TEXTO>¿Puedo modificar el formato en que estan definidas las tablas dentro del documento? Me gustaría entre otras cosas añadir si un campo es único</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Sin problema</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160520</FECHA>
+		<TEXTO>En la definición de las Tablas, cuando se hace referencia a Grupo, aplicaciónes ... ¿renombramos los campos y ponemos ID- delante? ¿hacemos que apunte al IDE de esas tablas?</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Sin problema</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160520</FECHA>
+		<TEXTO>¿Quién anula un despliegue y por qué?</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Anular un despliegue implica dejar el despliegue en situación "Cancelado". Deben de cumplirse una serie de condiciones. La Situación del despliegue en ese momento debe de ser "Despliegue fallido en PRE" ó "Despliegue fallido en PRE" y además el Usuario debe de tener permiso para llevarlo a cabo</TEXTO>
+			<FAQ tipo="INTERNA">
+				<FECHA>20160530</FECHA>
+				<TEXTO>¿Quién puede anular un despliegue?</TEXTO>
+				<RESPUESTA>
+					<FECHA>20160613</FECHA>
+					<TEXTO>El que pueda ordenar un despliegue, tambien puede anularlo</TEXTO>
+				</RESPUESTA>
+			</FAQ>			
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160520</FECHA>
+		<TEXTO>¿Creamos una tabla de estados para que quede reflejada la transición entre estados en lugar de los campos dentro de la tabla de despliegues?</TEXTO>
+		<RESPUESTA>
+			<TEXTO>No, sería posible, pero asi evitamos crear mas tablas y no se preveen nuevos estados.</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160520</FECHA>
+		<TEXTO>¿Cómo se refleja una vuelta atrás en PRE y PRO?</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Se solicita una sola vez, por un usuario y se vuelve atrás en uno o los dos entornos en función del estado en que se encuentre. Quedará reflejado en los campos especificos del despliegue y en cada una de las entidades relacionadas</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160520</FECHA>
+		<TEXTO>¿Qué se delega en una delegación?</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Se delega una autorización, o sea, un permiso de un usuario sobre un área (grupo de aplicaciónes). Por lo tanto un Analista Gob, en caso de ausencia, deberá de crear tantas delegaciones como areas en la que tenga autorización.</TEXTO>
+			<NOTA>Al logearse un usuario se comprobará si tiene alguna delegación activa, en caso afirmativo se le informará, puesto que la autorización delegada será como que no la tiene.</NOTA>
+		</RESPUESTA>
+		<RESPUESTA>
+			<FECHA>20160722</FECHA>
+			<TEXTO>Al loquearse un usuario se comprueba si tiene delegaciones activas en cuyo caso se informa e incluso se permite acceder al mantenimiento de delegaciones</TEXTO>
+			<NOTA>Queda pendiente notificar via correo cuando se delega en alguien y cuando deja de ser delegado.</NOTA>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160520</FECHA>
+		<TEXTO>¿El Steplib no es algo que debería de tenerse en cuenta a la hora de llevar a cabo un despliegue?</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Una libreria en PRE y PRO siempre debería tener el mismo Steplib. Cuando se pide el cambio del Steplib de una libreria se deberia de pedir en los 3 entornos.</TEXTO>
+			<NOTA>Pensar si se puede llevar a cabo un procedimiento para pedir un cambio en el Steplib de una libreria, para que no se desincronicen</NOTA>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160520</FECHA>
+		<TEXTO>Pensando en las Referencias cruzadas. Las opciones de una consulta varian dependiendo de la libreria en la que se hace la consulta ¿se tiene en cuenta?</TEXTO>
+		<RESPUESTA>
+			<TEXTO>El tema de las referencias cruzadas esta parado.</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160520</FECHA>
+		<TEXTO>GC-DE-OBJETOS - En el punto 2.1.13 del documento inicial de análisis se muestra la tabla DB:070 FNR:024 que se supone que es donde se reflejen los objetos a eliminar en un despliegue ¿Es OK?</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Sobra, no tiene sentido puesto que en el propio despliegue, cuando relacionamos un objeto, podemos decir que la acción a llevar a cabo sea borrar.</TEXTO>
+			<FAQ tipo="INTERNA">
+				<FECHA>20160606</FECHA>
+				<TEXTO>Actualmente se estan generando registros - Creo que con GCP1OBJE</TEXTO>
+				<RESPUESTA>
+					<FECHA>20160613</FECHA>
+					<TEXTO>Se usa para generar la información recogida en NATURAL_UNIX</TEXTO>
+				</RESPUESTA>
+			</FAQ>				
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160520</FECHA>
+		<TEXTO>Un objeto Natural para poder meterse en un despliegue ¿debe de compilar?</TEXTO>
+		<RESPUESTA>
+			<TEXTO>En el momento de añadirlo al despliegue se puede comprobar pero si no compila no será restrictivo, se lanzará un aviso.</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160520</FECHA>
+		<TEXTO>No falta en la pantalla que sale la relación de despliegues la opción de Cancelar? La opción solo podrá llevarse a cabo si el estado del despliegue es el adecuado</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Si, hay que añadirlo</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160520</FECHA>
+		<TEXTO>En la pantalla de mantenimiento de despliegue ¿no sobra los datos de creación y de baja? Irán en la ventana de Auditoria</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Pueden quitarse pero si queda espacio, tambien puede dejarse</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160520</FECHA>
+		<TEXTO>Los Objetos a Replicar ¿cómo se determinan? Puede darse la situación de que a la otra aplicación no le interese cambiar</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Estos objetos son indicados manualmente. Podriamos enviar un correo al responsable de la libreria destino indicando que el objeto ha sido modificado</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160520</FECHA>
+		<TEXTO>Al añadir un elemento en un despliegue se comprueba que no este en otro despliegue NO FINALIZADO, si existe ¿se deja añadir al despliegue?</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Dejamos añadirlo, pero avisamos</TEXTO>
+			<FAQ tipo="INTERNA">
+				<FECHA>20160606</FECHA>
+				<TEXTO>Supongo que donde le paramos es al intentar pasarlo a "Despliegue pendiente PRE" momento en el que supongo que se coge la copia de lo que se quiere desplegar. ¿es asi?</TEXTO>
+				<RESPUESTA>
+					<FECHA>20160613</FECHA>
+					<TEXTO>La copia de los objetos a pasar se coge en el momento que se indica que hay que proceder al despliegue. Si hay problema, se informará y no se deja poner en Pendiente.</TEXTO>
+				</RESPUESTA>
+			</FAQ>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160520</FECHA>
+		<TEXTO>GC-DE-ENTIDAD-CODI - Al pasar un código ¿no podemos machacar otro que sea bueno de producción?</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Para evitar esto, se comprobará antes que ese código no existe en PRO, si existe se indicará con un error/warning y no se pasará</TEXTO>
+			<FAQ tipo="INTERNA">
+				<FECHA>20160606</FECHA>
+				<TEXTO>¿Podemos crear una utilidad para traer de PRODUCCION una grupo de codigos, machacando los existentes en DES/PRE?</TEXTO>
+				<RESPUESTA>
+					<FECHA>20160613</FECHA>
+					<TEXTO>Se puede crear</TEXTO>
+					<NOTA>Crear una utilidad que permita traer de producción un codigo en concreto, machacando los existentes en Desarrollo.</NOTA>
+				</RESPUESTA>
+			</FAQ>	
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160520</FECHA>
+		<TEXTO>GC-DE-ENTIDAD-PROC - Al pasar un proceso (opción de menu) ¿no podemos machacar otro que sea bueno de producción?</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Para evitar esto, se comprobará antes que ese proceso no existe en PRO, si existe se indicará con un error/warning y no se pasará</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160520</FECHA>
+		<TEXTO>GC-DE-DELEGACIONES - En las Delegaciones entiendo que la fecha de inicio se obligatoria, pero ¿la de fin tambien? Hay casos como las bajas en las que no se sabe la fecha fin</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Permitiremos la fecha fin vacía</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160520</FECHA>
+		<TEXTO>Pág 43 "1. Se verifica la fecha/hora a partir de la cual se quiere que se efectúe el despliegue, si esta fecha/hora es inferior a la del sistema no se continúa". Entiendo que si es inferior es porque no se pudo desplegar en ese momento, anterior al actual, por lo que se puede desplegar, no se desplegara si la fecha hora es mayor que la actual.</TEXTO>
+		<RESPUESTA>
+			<TEXTO>Redactamos: "1. Serán susceptibles de ser ejecutados los despliegues cuya fecha/hora de despliegue sea anterior o igual al momento actual."</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160530</FECHA>
+		<TEXTO>GC-DE-ENTIDAD-XREF - ¿no se guardan los CRC para SRC y GP? ¿creamos dos nuevos campos SRC-CRC y GP-CRC?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>No es necesario puedo que lo que importa es la referencia.</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160530</FECHA>
+		<TEXTO>¿Se replican sólo los compilados?¿copycodes? La duda surge por el comentario que pone en ID-LIBRERIA-REPLICA de la tabla GC-DE-ENTIDAD-REPL y GC-DE-OBJETOS-REPLICADOS. Es posible obligar a pasar siempre los fuentes junto al compilado pero que no pueda editarlo cualquiera?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Sólo se pasan los compilados, puesto que asi el fuente solo se encontrara en un sitio, el origen. respecto a los Copycodes, normalmente no se replicaran.</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160530</FECHA>
+		<TEXTO>GC-DE-ERRORES - ¿podemos eliminar IDE y NU-ORDEN?. Con el ID-DESPLIEGE y con HO-CREACION tenemos suficiente. Evitamos tener que ir a buscar la numeración para el IDE y el secuencial para NU-ORDEN</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>El IDE no lo quitamos ya que en un mismo TIME podriamos tener mas de un error y perderiamos identificacioón unica. Respecto al NU-ORDEN, lo eliminamos.</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160530</FECHA>
+		<TEXTO>GC-DE-AREAS - Tanto en la tabla como en los campos de las distintas tablas ¿puedo renombrar Grupo por Área? mas que nada para evitar confundirlo lon grupos de usuarios</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Procedemos con el cambio, la tabla que inicialmente se llamaba GE-DE-GRUPOS por GE-DE-AREAS</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160530</FECHA>
+		<TEXTO>GC-DE-AREAS - En la tabla de Grupos/Área puedo quitar el ID-GRUPO, usamos IDE</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>OK</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160530</FECHA>
+		<TEXTO>GC-DE-DELEGACIONES - La tabla de delegaciones se crea para poder delegar una Autorización, creo que sobra ID-USUARIO e ID-DELEGACION y falta con ID-AUTORIZACION</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Ok. Además permitiremos delegar ciertos permisos de la autorización. O sea si la autorización da permiso a todo, podra haber varias delegaciones, una para crear despliegues, otra para desplegar en PRE y otra para desplegar en PRO</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160530</FECHA>
+		<TEXTO>GC-DE-APLICACIONES-AREA - La tabla que inicialemnte se llamaba GC-APLICACIONES ¿puedo renombrarla por GC-DE-APLICACIONES-AREA? En realidad lo que hace es identificar que aplicaciónes hay en un área. Las aplicaciónes seran las que estan dadas de alta en la aplicación PROCESOS (tabla APLICACIONES). Las descripciónes sobran pues es una relación y la descripción de la aplicación esta en APLICACIONES</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Ok</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160530</FECHA>
+		<TEXTO>GC-DE-DESPLIEGUES - Si la tabla GC-DE-APLICACIONES-AREA vincula el Área y la aplicación, en la tabla de Despliegues podemos quitar el campo ID-GRUPO</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Ok</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160530</FECHA>
+		<TEXTO>GC-DE-MODULOS - La tabla es una subagrupación de GC-DE-APLICACIONES-AREA ¿sobra ID-GRUPO? además ID-MODULO sobra puesto que ya tenemos un IDE</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>OK</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="MODELO">
+		<FECHA>20160530</FECHA>
+		<TEXTO>GC-DE-PROYECTOS - La tabla es una subagrupación de GC-DE-MODULOS ¿sobra ID-GRUPO, ID-aplicación? además ID-PROYECTO sobra puesto que ya tenemos un IDE</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>OK</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160530</FECHA>
+		<TEXTO>Las tablas descritas en el punto 2.1.24 (GC-DECN-CONSULTAS, GC-DECO-CODIGOS, GC-DEPL-PLANTILLAS, GC-DEPR-PROCESOS y GC-DEGP-GRUPOS-PROCESOS) son copias exactas? estan creadas? tambien seran accesibles desde los 3 entornos o sea DB 70? no podriamos llamarlas igual pero acabadas en PRO? no se puede definir acceso a las reales pero en modo lectura?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>No se puede dar permiso en modo consulta, por lo tanto es necesario replicar las tablas que se informarán periodicamente para que esten lo mas actualizadas posibles</TEXTO>
+			<NOTA>Identificar, cómo y cuando se replican.</NOTA>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160530</FECHA>
+		<TEXTO>Tenemos un despliegue en Borrador y queremos desplegarlo. ¿Deben de compilar los objetos natural en DES? ¿en que momento? Supongo que al solicitar el Despliegue, momento en el que se hara la copia de los objetos a copiar en PRE puesto que desde que se solicita hasta que se despliega, un objeto puede cambiar.</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>El momento clave es cuando se indica que se quiere desplegar, o sea cuando pasa de borrador a Pendiente</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160530</FECHA>
+		<TEXTO>Sería posible solicitar hacer una CATALL de todas las librerias implicadas en un despliegue y sus StepLib. Seria a demanda puesto que hay momentos en los que no se debería hacer.</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>No, no tiene sentido.</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160530</FECHA>
+		<TEXTO>En las opciones de despliegues ¿no sobra la opción P? se supone que lo hay que eliminar estará en cada detalle de entidad</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Es una manera de separar lo que se quiere borrar de las modificaciones y altas. Mas que nada por evitar errores</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160530</FECHA>
+		<TEXTO>Un despliegue solo puede crearse o modificarse si se tiene autorización o se ha delegado una autorización, y puede darse que en el momento que se quiere llevar a cabo la acción la persona que la dio de alta ya no este autorizada.</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Si tiene permiso en el momento de ordenar el despliegue, basta.</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160613</FECHA>
+		<TEXTO>Al delegar una autorización, podemos avisar al delegado de su nueva autorización y de si tiene despliegues en curso del autorizado. De igual forma al finalizar la delegación tambien podemos mandarle un correo al delegado y otro al que recupera la autorización.</TEXTO>
+	</FAQ>	
+	<FAQ tipo="INTERNA">
+		<FECHA>20160530</FECHA>
+		<TEXTO>Si se ha solicitado una Vuelta atrás y ha sido por error, podemos cancelarla si aún esta no se ha iniciado. Si estaba en "Vuelta atrás en PRE" se quedará en "Despliegue con éxito PRE" y si estaba en "Vuelta atrás en PRO" se quedará en "Despliegue con éxito PRO" ¿OK?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Ok</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160530</FECHA>
+		<TEXTO>¿Es posible un bufferpool único? si no es posible ¿cómo indicamos si se debe de compilar con n228 ó n228.web?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Mientras no exista el bufferpool unico, se compila en ambos siempre</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160530</FECHA>
+		<TEXTO>Queremos pasar un código y al intentar pasarlo vemos que existe en PRO y registramos un error/warning ¿damos la posibilidad de copiarlo de todos modos?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>En el momento de indicar que se quiere despleguar, se comprueba si existe, en caso afirmativo se informa y se pide indicar que a pesar de todo se quiere machacar, si acepta, se machacara.</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160530</FECHA>
+		<TEXTO>¿Es posible habilitar la posibilidad de traernos códigos de PRO?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Puede hacerse</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160530</FECHA>
+		<TEXTO>Cuando encontremos warnings (intentar pasar un codigo, proceso ... que ya existe) y que no vamos a llevar a cabo ¿cómo lo registramos?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Se reflejará en Errores y en Logs. Aunque tal y como se ha dicho antes, pudo pedirse confirmación en el momento que se solicito.</TEXTO>
+		</RESPUESTA>	
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160530</FECHA>
+		<TEXTO>Tenemos el despliegue en Borrador, y solicitamos despliegue a PRE. Se comprueba que no esten referenciados en otro despliegue en curso y si no estan se compilan, si va Ok Adelante. Pero ¿qué pasa si uno de los objetos relacionados esta bloqueado o no compila en ese momento?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>No se procede con el cambio de estado. Se informa por pantalla.</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160530</FECHA>
+		<TEXTO>Al proceder con un Despliegue ¿hay un tiempo maximo?. Podriamos poner una "bandera/marca" que nos sirva para que no se comience con otro hasta que esa bandera este off?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>En lugar de una bandera que puede quedarse bloqueada, buscaremos si es posible ver si un proceso esta en ejecución.</TEXTO>
+			<NOTA>Preguntar a Segundo si hay algún modo de ver si un proceso esta en ejecución. De este modo no lanzaremos un nuevo proceso mientras el anterior este en ejecución</NOTA>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160530</FECHA>
+		<TEXTO>Pág 38 del documento. Se comenta que las autorizaciones se dan por libreria. ¿no se daban por Grupo/área?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Se dan por Areas</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160606</FECHA>
+		<TEXTO>GCP1OBJE - ¿Cambiamos '/PRD/apli/fuser63' por GCLCTES-SRC-DIR?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Ok</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160606</FECHA>
+		<TEXTO>GCNDBGEM - ¿Cambiamos 'notificaciones_ganaderia@cantabria.es' y 'saiz_la@cantabria.es;asenjo_fa@cantabria.es' por una nueva Constante?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Se puede crear una constante para este fin.</TEXTO>
+			<NOTA>Actualmente si se indica que hay que mandar un correo a varios, si uno de ellos casca, no se envia ninguno. Hay que modificar el programa para que envie una copia de correo a cada uno de la lista.</NOTA>
+		</RESPUESTA>
+		<RESPUESTA>
+			<FECHA>20160715</FECHA>
+			<TEXTO>Se hace una versión del programa en ANNEMAIL que soluciona este problema. Manda correos individuales. Esta solución hace que los destinatarios dejen de saber el resto de destinatarios del correo, eso se evita introduciendo esa info en el pie del correo. </TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160606</FECHA>
+		<TEXTO>GCP1OBJE - ¿En Objetos-borrar pq solo se trata SANIMAL?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Son pruebas</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160607</FECHA>
+		<TEXTO>GCP3OBJE - Esta imcompleto, no compila. Hay lineas en blanco que dan que pensar. ¿Que funcion se le quiere dar?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Estaba en desarrollo</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="OTROS">
+		<FECHA>20160607</FECHA>
+		<TEXTO>Hash de un fichero. Me pregunta que si no hay la posibilidad de calcular el HASH de un fichero, actualmente creo que no la hay. Podriamos hacerlo mediante correos? Ellos nos habilitan un servicio que recibe correos con adjuntos y se ocupa de mandar otro correo con el HASH</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Hay que identificar la codificación que se desea y se puede hacer algo</TEXTO>
+			<NOTA>Habilitar la opción de descargar ficheros codificados en Base64 o en distintas codificaciones</NOTA>
+		</RESPUESTA>	
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160607</FECHA>
+		<TEXTO>GCPDESPL - Hace lo que le de tiempo a hacer en 3 minutos. ¿Por qué no le dejamos que haga todo? Para ello deberiamos de dejar una marca/bandera que indique que esta en marcha un proceso de despliegue, de tal forma que cuando el cron intente ejecutar de nuevo el programa, este no haga nada</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>En realidad lo que hace es no empezar un nuevo despliegue si ya han pasado los 3 minutos, pero lo que este empezado lo acaba.</TEXTO>
+		</RESPUESTA>	
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160607</FECHA>
+		<TEXTO>GCPDESPL - Ejecuta por estado en lugar de por estado/hora. no puede ser que se quede algo sin subir? ¿No seria mejor concretar el orden? Por ejemplo, primero las vueltas atras, luego los despliegues a PRE y luego los de PRO</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Creamos un super y desplegaremos por estado+fecha/hora despliegue, en descendente desde el momento actual</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160607</FECHA>
+		<TEXTO>GCPCRON - Hay algun motivo para las limitaciones de 23:30 y 00:00?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Ninguna en especial.</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160608</FECHA>
+		<TEXTO>USR2027N ¿Para que sirve? Lo llama KK2KK3</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Ver en SYSEXT. Por lo que he visto, parece ser un delay</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160608</FECHA>
+		<TEXTO>ftouch ¿Para que sirve? Lo llama GCNFTOUC</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Reconstruye el FileDir</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160609</FECHA>
+		<TEXTO>En los ficheros planos que mandamos a Edu para que nos genere los ficheros, ¿como inidicamos si un descriptor es unico? ¿y si fuese un array, periodico...?¿se pueden mandar comentarios?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Preguntar directamente a Edu</TEXTO>
+			<NOTA>Preguntar a Edu sobre los el formato de los ficheros a mandar</NOTA>
+		</RESPUESTA>		
+        <RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Me comentan que se lo envie en la plantilla Excel existente</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="INTERNA">
+		<FECHA>20160609</FECHA>
+		<TEXTO>GC-DE-DESPLIEGES - Podemos evitar el ID-AREA puesto que tenemos el ID-APLICACION-AREA ¿lo quitamos?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160613</FECHA>
+			<TEXTO>Ok</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160804</FECHA>
+		<TEXTO>GC-DE-OBJETOS - En esta tabla se almacenan los objetos existentes en cada entorno. Si un objeto se borró, sigue existiendo? La pregunta surge pq no sé si puedo usarlo para comprobar si un elemento se debe de crear o modificar</TEXTO>
+        <RESPUESTA>
+			<FECHA>20160810</FECHA>
+			<TEXTO>Una posible solución sería poder acceder al FileDir de todos los entornos.</TEXTO>
+			<NOTA>Preguntar a Edu si es posible acceder al FileDir de PRE y PRO desde Desarrollo (NO HACE FALTA)</NOTA>
+		</RESPUESTA>
+		<RESPUESTA>
+			<FECHA>20160817</FECHA>
+			<TEXTO>Con GCNFISAG podemos acceder</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160809</FECHA>
+		<TEXTO>GC-DE-ENTIDAD-CONS - Para añadir elementos en esta tabla saco una relación de las consultas Standard existentes y se seleccionan. No sería mejor que se pasasen en bloque (Standard, Comunes y Ocultos)?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160812</FECHA>
+			<TEXTO>Fernando no ve problema en hacerlo asi, aún asi lo confirmamos con Luis</TEXTO>
+			<NOTA>¿Que opina Luis?</NOTA>
+		</RESPUESTA>	
+		<RESPUESTA>
+			<FECHA>20160817</FECHA>
+			<TEXTO>Ok, se pasa TODO lo que tenga ese nombre de consulta.</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160809</FECHA>
+		<TEXTO>GC-DE-ENTIDAD-CONS - ¿Cómo indico que se pasen las opciones de una consulta Standard?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160809</FECHA>
+			<TEXTO>Al pasar la consulta Standard, paso tb sus opciones</TEXTO>
+		</RESPUESTA>
+	</FAQ>
+    <FAQ tipo="GCTOOLS">
+		<FECHA>20160810</FECHA>
+		<TEXTO>GC-DE-ENTIDAD-* - A la hora de marcar cosas que quiero que se borren de PRO, ¿Cómo lo hacemos?, con los objetos natural mas o menos hay solucion, pero que pasa con las Consultas, Códigos ....
+		</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160817</FECHA>
+			<TEXTO>Tenemos acceso al filedir de PRO, por lo tanto es posible</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160810</FECHA>
+		<TEXTO>GC-DE-ENTIDAD-* - Hay entidades relacionadas con un despliegue solo se guardan los ID, no el contenido, por lo tanto si queremos saber el valor de, por ejemplo un código, que pasamos en un despliegue no lo podemos saber</TEXTO>
+        <RESPUESTA>
+			<FECHA>20160810</FECHA>
+			<TEXTO>Mientras el despliegue este en Borrador, se mostrará la info actual de DES, en otros estados habra que mostrar info almacenada en los Logs</TEXTO>
+			<NOTA>Pensar como solucionar esto con los LOGS</NOTA>
+		</RESPUESTA>		
+		<RESPUESTA>
+			<FECHA>20160817</FECHA>
+			<TEXTO>En los ficheros planos en los que dejamos todo guardado, estará esta información.</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="GCTOOLS">
+		<FECHA>20160812</FECHA>
+		<TEXTO>GC-DE-CO-SITUACIONES-DES - En muchas pantallas se muestra el código de situación, el código numerico no es muy significativo. ¿por cual lo cambiamos?</TEXTO>
+		<NOTA>[GCTOOLS] - 20160812 - Recodificación de los códigos de Situación para que sean significativos (Propuesta 01)</NOTA>
+		<RESPUESTA>
+			<FECHA>20160812</FECHA>
+			<TEXTO>Fernando propone añadir una descripción corta a la Situación</TEXTO>
+			<NOTA>¿Compensa?, implicará tener que ir a rescatarla. La idea inicial era tener un código descriptivo de la situación que evite añadir lecturas</NOTA>
+		</RESPUESTA>
+		<RESPUESTA>
+			<FECHA>20160817</FECHA>
+			<TEXTO>Tenemos máquina suficiente, no es un problema ir a por ello, por lo tanto añadimos el campo en la tabla.</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="GENERAL">
+		<FECHA>20160812</FECHA>
+		<TEXTO>Si tengo acceso a una libreria, lo tengo a todo lo que tenga ella? o sea, se aumenta el Steplib de una libreria con los Steplib de las que tiene?</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160817</FECHA>
+			<TEXTO>No se tiene acceso.</TEXTO>
+		</RESPUESTA>		
+	</FAQ>
+	<FAQ tipo="DIR3">
+		<FECHA>20160812</FECHA>
+		<TEXTO>Podemos mermar el numero de servicios, dejando uno por entidad que devuelva 1 o varios en función de si se envia un ID, y detalle o no en funcion de si se indica? (correo [DIR3] - 20160812 - Propuesta de posibles mejoras/cambios)</TEXTO>
+		<RESPUESTA>
+			<FECHA>20160816</FECHA>
+			<TEXTO>Fernando lo ve bien y Ramiro tb. Elena no pone problemas al retraso de unos dias</TEXTO>		
+		</RESPUESTA>
+	</FAQ>
+	<FAQ tipo="DIR3">
+		<FECHA>20160816</FECHA>
+		<TEXTO>Se puede dar de alta ya el código en UTNENTOR? Mas que nada por ir cerrando cosas. (URLWSGESDIR3)</TEXTO>
+	</FAQ>
+</CUESTIONES>

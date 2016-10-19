@@ -1,0 +1,11 @@
+@import "mitema.scss";
+@import "addons.scss";
+
+// This file prefixes all rules with the theme name to avoid causing conflicts with other themes.
+// The actual styles should be defined in mitema.scss
+
+.mitema {
+  @include addons;
+  @include mitema;
+
+}

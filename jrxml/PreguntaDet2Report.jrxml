@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PreguntaDet2Report" pageWidth="530" pageHeight="200" whenNoDataType="AllSectionsNoDetail" columnWidth="530" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ea2f7cd7-fb00-4720-a65c-a6d830ada89f">
+	<property name="ireport.zoom" value="1.9487171000000054"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha" class="java.util.Date"/>
+	<parameter name="tipo" class="java.lang.String"/>
+	<parameter name="texto" class="java.lang.String"/>
+	<field name="fecha" class="java.util.Date"/>
+	<field name="texto" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="listaRespuestas" class="java.util.List"/>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="25" y="0" width="505" height="22" isRemoveLineWhenBlank="true" uuid="84a14688-2681-4a17-a522-b66af350e18f"/>
+				<subreportParameter name="fecha">
+					<subreportParameterExpression><![CDATA[$F{fecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="texto">
+					<subreportParameterExpression><![CDATA[$F{texto}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipo">
+					<subreportParameterExpression><![CDATA[$F{tipo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaRespuestas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[".\\PreguntaDet3Report.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="41">
+			<printWhenExpression><![CDATA[$F{listaRespuestas}.isEmpty()]]></printWhenExpression>
+			<rectangle>
+				<reportElement x="25" y="0" width="505" height="41" uuid="ffe060c5-fb42-49b7-9c8b-0fac90d7bc28"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dashed" lineColor="#CCCCCC"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+	</detail>
+</jasperReport>

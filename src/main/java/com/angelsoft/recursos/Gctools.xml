@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<GC-TOOLS>
+	<PROGRAMA nombre="GCPIDE00">
+		<DESCRIPCION>Menú de la aplicación</DESCRIPCION>
+	</PROGRAMA>
+	<LOCAL nombre="GCLUSUAR">
+		<DDM nombre="GC-DE-USUARIOS" db="70" fnr="13"></DDM>
+	</LOCAL>
+	<LOCAL nombre="GCLTIUSU">
+		<DDM nombre="GC-DE-CO-TIPO-USUARIO" db="70" fnr="48"></DDM>
+	</LOCAL>
+	<LOCAL nombre="GCLPERMI">
+		<DDM nombre="GC-DE-CO-PERMISO" db="70" fnr="52"></DDM>
+	</LOCAL>
+	<LOCAL nombre="GCLAUTOR">
+		<DDM nombre="GC-DE-AUTORIZACIONES" db="70" fnr="51"></DDM>
+	</LOCAL>
+	<LOCAL nombre="GCLDELEG">
+		<DDM nombre="GC-DE-DELEGACIONES" db="70" fnr="53"></DDM>
+	</LOCAL>
+	<LOCAL nombre="GCLAREA">
+		<DDM nombre="GC-DE-AREAS" db="70" fnr="50"></DDM>
+	</LOCAL>
+	<LOCAL nombre="GCLAPARE">
+		<DDM nombre="GC-DE-APLICACIONES-AREA" db="70" fnr="49"></DDM>
+	</LOCAL>
+	
+	<SUBPROGRAMA nombre="GCNONERR">
+		<DESCRIPCION>Tratamiento de errores de ejecución</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCAONERR"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMONERR"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+		</LLAMADAS>	
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNSEGUR">
+		<DESCRIPCION>Recupera los permisos del ususario logeado</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCASEGUR"></PARAMETER>
+		</PARAMETERS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>	
+	<SUBPROGRAMA nombre="GCNAUDIT">
+		<DESCRIPCION>Muestra los datos de Auditoria (Usuario y hora de creación, última modificación y baja)</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCAAUDIT"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMAUDIT"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+
+	<PROGRAMA nombre="GCPUSUAR">
+		<DESCRIPCION>Mantenimiento de Usuarios de la aplicación</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="GCNCUSUA" parametros="GCACUSUA">Consulta de Usuarios</CALLNAT>
+		</LLAMADAS>
+		<MAPAS>
+		    <MAP nombre="GCMUSUAR"></MAP>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+	</PROGRAMA>
+	<SUBPROGRAMA nombre="GCNCUSUA">
+		<DESCRIPCION>Consulta de Usuarios de la aplicación</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCACUSUA"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMCUSUA"></MAP>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="GCNMUSUA" parametros="GCAUSUAR">Mantenimiento de un usuario</CALLNAT>
+			<CALLNAT subprograma="GCNCAUTO" parametros="GCACAUTO">Consulta de Autorizaciones</CALLNAT>
+			<CALLNAT subprograma="GCNFUSUA" parametros="GCACUSUA, GCATOXLS">Descarga a WKF</CALLNAT>
+			<CALLNAT subprograma="GCNTOXLS" parametros="GCATOXLS">Descarga los WKF a Excel</CALLNAT>
+			<INCLUDE copycode="GCCUSUGB"></INCLUDE>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNMUSUA">
+		<DESCRIPCION>Mantenimiento de un Usuario de la aplicación</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCAUSUAR"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMMUSUA"></MAP>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="UTNCONFI" parametros="UTLCONFI">Solicitar confirmación</CALLNAT>
+			<CALLNAT subprograma="GCNAUDIT" parametros="GCAAUDIT">Muestra los datos administrativos</CALLNAT>
+			<CALLNAT subprograma="GCNTUSUA" parametros="GCAUSUAR">CRUD de Usuarios</CALLNAT>
+			<CALLNAT subprograma="GCNCAUTO" parametros="GCACAUTO">Consulta de Autorizaciones</CALLNAT>
+			<INCLUDE copycode="GCCUSUGB"></INCLUDE>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNTUSUA">
+		<DESCRIPCION>CRUD de Usuarios de la aplicación. 
+					 Operaciones: 
+								 'A' - Alta 
+								 'B' - Borrado Lógico
+								 'M' - Modificación
+								 'R' - Re-activar
+								 'Z' - Consulta
+					 RETORNO: 0 = Ok
+							  1 = Ok, con END TRANSACTION
+							  8 = Ok, Registro con HO Baja
+							  9 = Error
+		</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCAUSUAR"></PARAMETER>
+		</PARAMETERS>
+		<LOCALS>
+			<LOCAL>GCLUSUAR</LOCAL>
+		</LOCALS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNTUSGB" parametros="GCAUSUGB">CRUD usuarios Gob</CALLNAT>
+			<CALLNAT subprograma="GCNTTIUS" parametros="GCATIUSU">CRUD tipo de usuario</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNFUSUA">
+		<DESCRIPCION>Descarga a Fichero plano los Usuarios
+		</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCACUSUA"></PARAMETER>
+			<PARAMETER nombre="GCATOXLS"></PARAMETER>
+		</PARAMETERS>
+		<LOCALS>
+			<LOCAL>GCLUSUAR</LOCAL>
+		</LOCALS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<INCLUDE copycode="GCCUSUGB"></INCLUDE>
+			<INCLUDE copycode="GCCTOFIC"></INCLUDE>
+		</LLAMADAS>
+	</SUBPROGRAMA>	
+	<HELPROUTINE nombre="GCHUSUAR">
+		<DESCRIPCION>Helproutine de usuarios de la aplicación</DESCRIPCION>
+		<MAPAS>
+			<MAP nombre="GCMHUSUA"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNHCODI" parametros="GCAHCODI">Consulta para las Helproutines</CALLNAT>
+		</LLAMADAS>
+	</HELPROUTINE>
+	<COPYCODE nombre="GCCUSUGB">
+		<DESCRIPCION>Operaciones comunes con Usuarios</DESCRIPCION>
+		<SUBROUTINES>
+			<SUBROUTINE nombre="RECUPERA-USUARIO"></SUBROUTINE>
+		</SUBROUTINES>
+		<LLAMADAS>
+			<INCLUDE copycode="GCCUSUGB"></INCLUDE>
+		</LLAMADAS>
+	</COPYCODE>
+	
+	<PROGRAMA nombre="GCPTIUSU">
+		<DESCRIPCION>Mantenimiento de Tipos de Usuarios de la aplicación</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="UTNCONFI" parametros="UTLCONFI">Solicitar confirmación</CALLNAT>
+			<CALLNAT subprograma="GCNCTIUS" parametros="GCACTIUS">Consulta de Tipos de Usuarios</CALLNAT>
+		</LLAMADAS>
+		<MAPAS>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+	</PROGRAMA>
+	<SUBPROGRAMA nombre="GCNCTIUS">
+		<DESCRIPCION>Consulta de Tipos de Usuarios de la aplicación</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCACTIUS"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMCTIUS"></MAP>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="GCNMTIUS" parametros="GCATIUSU">Mantenimiento de un tipo de usuario</CALLNAT>
+			<CALLNAT subprograma="GCNTOXLS" parametros="GCATOXLS">Saca los datos a un XLS</CALLNAT>
+			<CALLNAT subprograma="GCNFTIUS" parametros="GCACTIUS, GCATOXLS">Descarga a WKF</CALLNAT>
+			<CALLNAT subprograma="GCNTOXLS" parametros="GCATOXLS">Descarga los WKF a Excel</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNMTIUS">
+		<DESCRIPCION>Mantenimiento de un Tipo de Usuario de la aplicación</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCATIUSU"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMMTIUS"></MAP>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="UTNCONFI" parametros="UTLCONFI">Solicitar confirmación</CALLNAT>
+			<CALLNAT subprograma="GCNAUDIT" parametros="GCAAUDIT">Muestra los datos administrativos</CALLNAT>
+			<CALLNAT subprograma="GCNTTIUS" parametros="GCATIUSU">CRUD de Tipos de Usuarios</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNTTIUS">
+		<DESCRIPCION>CRUD de Tipos de Usuarios de la aplicación. 
+					 Operaciones: 
+								 'A' - Alta 
+								 'B' - Borrado Lógico
+								 'M' - Modificación
+								 'R' - Re-activar
+								 'Z' - Consulta
+					 RETORNO: 0 = Ok
+							  1 = Ok, con END TRANSACTION
+							  8 = Ok, Registro con HO Baja
+							  9 = Error
+		</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCATIUSU"></PARAMETER>
+		</PARAMETERS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNFTIUS">
+		<DESCRIPCION>Descarga a Fichero plano los Tipos de Usuarios
+		</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCACTIUS"></PARAMETER>
+			<PARAMETER nombre="GCATOXLS"></PARAMETER>
+		</PARAMETERS>
+		<LOCALS>
+			<LOCAL>GCLTIUSU</LOCAL>
+		</LOCALS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<INCLUDE copycode="GCCTOFIC"></INCLUDE>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<HELPROUTINE nombre="GCHTIUSU">
+		<DESCRIPCION>Helproutine de Tipos de usuarios</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNHCODI" parametros="GCAHCODI">Consulta para las Helproutines</CALLNAT>
+		</LLAMADAS>
+	</HELPROUTINE>
+
+	<PROGRAMA nombre="GCPPERMI">
+		<DESCRIPCION>Mantenimiento de Permisos de la aplicación</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="GCNCPERM" parametros="GCACPERM">Consulta de Permisos</CALLNAT>
+		</LLAMADAS>
+		<MAPAS>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+	</PROGRAMA>
+	<SUBPROGRAMA nombre="GCNCPERM">
+		<DESCRIPCION>Consulta de Permisos de la aplicación</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCACPERM"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMCPERM"></MAP>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="GCNMPERM" parametros="GCAPERMI">Mantenimiento de un permiso</CALLNAT>
+			<CALLNAT subprograma="GCNTOXLS" parametros="GCATOXLS">Saca los datos a un XLS</CALLNAT>
+			<CALLNAT subprograma="GCNFPERM" parametros="GCACPERM, GCATOXLS">Descarga a WKF</CALLNAT>
+			<CALLNAT subprograma="GCNTOXLS" parametros="GCATOXLS">Descarga los WKF a Excel</CALLNAT>
+		</LLAMADAS>
+		<LOCALS>
+			<LOCAL>GCLPERMI</LOCAL>
+		</LOCALS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNMPERM">
+		<DESCRIPCION>Mantenimiento de un Tipo de Permiso de la aplicación</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCAPERMI"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMMPERM"></MAP>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="UTNCONFI" parametros="UTLCONFI">Solicitar confirmación</CALLNAT>
+			<CALLNAT subprograma="GCNAUDIT" parametros="GCAAUDIT">Muestra los datos administrativos</CALLNAT>
+			<CALLNAT subprograma="GCNTPERM" parametros="GCAPERMI">CRUD de Tipos de Permisos</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNTPERM">
+		<DESCRIPCION>CRUD de Tipos de Permiso de la aplicación. 
+					 Operaciones: 
+								 'A' - Alta 
+								 'B' - Borrado Lógico
+								 'M' - Modificación
+								 'Z' - Consulta
+					 RETORNO: 0 = Ok
+							  1 = Ok, con END TRANSACTION
+							  8 = Ok, Registro con HO Baja
+							  9 = Error
+		</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCAPERMI"></PARAMETER>
+		</PARAMETERS>
+		<LOCALS>
+			<LOCAL>GCLPERMI</LOCAL>
+			<LOCAL>GCLAUTOR</LOCAL>
+			<LOCAL>GCLDELEG</LOCAL>
+		</LOCALS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNFPERM">
+		<DESCRIPCION>Descarga a Fichero plano los Tipos de Permisos
+		</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCACPERM"></PARAMETER>
+			<PARAMETER nombre="GCATOXLS"></PARAMETER>
+		</PARAMETERS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<INCLUDE copycode="GCCTOFIC"></INCLUDE>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<HELPROUTINE nombre="GCHPERMI">
+		<DESCRIPCION>Helproutine de Tipos de permisos</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNHCODI" parametros="GCAHCODI">Consulta para las Helproutines</CALLNAT>
+		</LLAMADAS>
+	</HELPROUTINE>
+
+	<PROGRAMA nombre="GCPAREA">
+		<DESCRIPCION>Mantenimiento de Áreas de la aplicación</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="GCNCAREA" parametros="GCACAREA">Consulta de Areas</CALLNAT>
+		</LLAMADAS>
+		<MAPAS>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+	</PROGRAMA>
+	<SUBPROGRAMA nombre="GCNCAREA">
+		<DESCRIPCION>Consulta de Áreas de la aplicación</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCACAREA"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMCAREA"></MAP>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="GCNMAREA" parametros="GCAPERMI">Mantenimiento de un área</CALLNAT>
+			<CALLNAT subprograma="GCNCAPAR" parametros="GCACAPAR">Consulta de Aplicaciones/Áreas</CALLNAT>
+			<CALLNAT subprograma="GCNCAUTO" parametros="GCACAUTO">Consulta de Autorizaciones</CALLNAT>
+			<CALLNAT subprograma="GCNFAREA" parametros="GCACAREA, GCATOXLS">Descarga a WKF</CALLNAT>
+			<CALLNAT subprograma="GCNTOXLS" parametros="GCATOXLS">Descarga los WKF a Excel</CALLNAT>
+		</LLAMADAS>
+		<LOCALS>
+			<LOCAL>GCLAREA</LOCAL>
+		</LOCALS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNMAREA">
+		<DESCRIPCION>Mantenimiento de un Área de la aplicación</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCAAREA"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMMAREA"></MAP>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="UTNCONFI" parametros="UTLCONFI">Solicitar confirmación</CALLNAT>
+			<CALLNAT subprograma="GCNAUDIT" parametros="GCAAUDIT">Muestra los datos administrativos</CALLNAT>
+			<CALLNAT subprograma="GCNTAREA" parametros="GCAPERMI">CRUD de Áreas</CALLNAT>
+			<CALLNAT subprograma="GCNCAPAR" parametros="GCACAPAR">Consulta de Aplicaciones/Áreas</CALLNAT>
+			<CALLNAT subprograma="GCNCAUTO" parametros="GCACAUTO">Consulta de Autorizaciones</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNTAREA">
+		<DESCRIPCION>CRUD de Áreas de la aplicación. 
+					 Operaciones: 
+								 'A' - Alta 
+								 'B' - Borrado Lógico
+								 'M' - Modificación
+								 'Z' - Consulta
+					 RETORNO: 0 = Ok
+							  1 = Ok, con END TRANSACTION
+							  8 = Ok, Registro con HO Baja
+							  9 = Error
+		</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCAAREA"></PARAMETER>
+		</PARAMETERS>
+		<LOCALS>
+			<LOCAL>GCLAREA</LOCAL>
+			<LOCAL>GCLAPARE</LOCAL>
+			<LOCAL>PDE. pendiente añadir mas posibles afectadas</LOCAL>
+		</LOCALS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNFAREA">
+		<DESCRIPCION>Descarga a Fichero plano los Areas
+		</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCACAREA"></PARAMETER>
+			<PARAMETER nombre="GCATOXLS"></PARAMETER>
+		</PARAMETERS>
+		<LOCALS>
+			<LOCAL>GCLAREA</LOCAL>
+		</LOCALS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<HELPROUTINE nombre="GCHAREA">
+		<DESCRIPCION>Helproutine de Áreas</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNHCODI" parametros="GCAHCODI">Consulta para las Helproutines</CALLNAT>
+		</LLAMADAS>
+	</HELPROUTINE>
+	
+	<PROGRAMA nombre="GCPAPARE">
+		<DESCRIPCION>Mantenimiento de Aplicación/Área</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="GCNCAPAR" parametros="GCACAPAR">Consulta de Aplicaciones/Áreas</CALLNAT>
+		</LLAMADAS>
+		<MAPAS>
+			<MAP nombre="UTMMENSA"></MAP>
+			<MAP nombre="GCMAPARE"></MAP>
+		</MAPAS>
+	</PROGRAMA>
+	<SUBPROGRAMA nombre="GCNCAPAR">
+		<DESCRIPCION>Consulta de Aplicación/Área de la aplicación</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCACAPAR"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMCAPAR"></MAP>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="GCNMAPAR" parametros="GCAPERMI">Mantenimiento de una aplicación/área</CALLNAT>
+			<CALLNAT subprograma="GCNFAPAR" parametros="GCACAPAR, GCATOXLS">Descarga a WKF</CALLNAT>
+			<CALLNAT subprograma="GCNTOXLS" parametros="GCATOXLS">Descarga los WKF a Excel</CALLNAT>
+		</LLAMADAS>
+		<LOCALS>
+			<LOCAL>GCLAPARE</LOCAL>
+		</LOCALS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNMAPAR">
+		<DESCRIPCION>Mantenimiento de una Aplicación/Área</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCAAPAR"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMMAPAR"></MAP>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="UTNCONFI" parametros="UTLCONFI">Solicitar confirmación</CALLNAT>
+			<CALLNAT subprograma="GCNAUDIT" parametros="GCAAUDIT">Muestra los datos administrativos</CALLNAT>
+			<CALLNAT subprograma="GCNTAPAR" parametros="GCAPERMI">CRUD de Aplicación/Área</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNTAPAR">
+		<DESCRIPCION>CRUD de Aplicacion/Área de la aplicación. 
+					 Operaciones: 
+								 'A' - Alta 
+								 'B' - Borrado Lógico
+								 'M' - Modificación
+								 'Z' - Consulta
+					 RETORNO: 0 = Ok
+							  1 = Ok, con END TRANSACTION
+							  8 = Ok, Registro con HO Baja
+							  9 = Error
+		</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCAAREA"></PARAMETER>
+		</PARAMETERS>
+		<LOCALS>
+			<LOCAL>GCLAPARE</LOCAL>
+			<LOCAL>PDE. pendiente añadir mas posibles afectadas</LOCAL>
+		</LOCALS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNFAPAR">
+		<DESCRIPCION>Descarga a Fichero plano las Aplicaciones/Áreas
+		</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCACAPAR"></PARAMETER>
+			<PARAMETER nombre="GCATOXLS"></PARAMETER>
+		</PARAMETERS>
+		<LOCALS>
+			<LOCAL>GCLAPAR</LOCAL>
+		</LOCALS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<HELPROUTINE nombre="GCHAPARE">
+		<DESCRIPCION>Helproutine de Aplicación/Área</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNHCODI" parametros="GCAHCODI">Consulta para las Helproutines</CALLNAT>
+		</LLAMADAS>
+	</HELPROUTINE>
+	
+	<PROGRAMA nombre="GCPAUTOR">
+		<DESCRIPCION>Mantenimiento de Autorizaciones</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="GCNCAUTO" parametros="GCACAUTO">Consulta de Autorizaciones</CALLNAT>
+		</LLAMADAS>
+		<MAPAS>
+			<MAP nombre="UTMMENSA"></MAP>
+			<MAP nombre="GCMAUTOR"></MAP>
+		</MAPAS>
+	</PROGRAMA>
+	<SUBPROGRAMA nombre="GCNCAUTO">
+		<DESCRIPCION>Consulta de Autorizaciones de la aplicación</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCACAUTO"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMCAUTO"></MAP>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="GCNMAUTO" parametros="GCAAUTOR">Mantenimiento de una autorización</CALLNAT>
+			<CALLNAT subprograma="GCNFAUTO" parametros="GCACAUTO, GCATOXLS">Descarga a WKF</CALLNAT>
+			<CALLNAT subprograma="GCNTOXLS" parametros="GCATOXLS">Descarga los WKF a Excel</CALLNAT>
+		</LLAMADAS>
+		<LOCALS>
+			<LOCAL>GCLAUTOR</LOCAL>
+		</LOCALS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNMAUTO">
+		<DESCRIPCION>Mantenimiento de una Autorización</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCAAUTOR"></PARAMETER>
+		</PARAMETERS>
+		<MAPAS>
+			<MAP nombre="GCMMAUTO"></MAP>
+			<MAP nombre="UTMMENSA"></MAP>
+		</MAPAS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+			<CALLNAT subprograma="UTNCONFI" parametros="UTLCONFI">Solicitar confirmación</CALLNAT>
+			<CALLNAT subprograma="GCNAUDIT" parametros="GCAAUDIT">Muestra los datos administrativos</CALLNAT>
+			<CALLNAT subprograma="GCNTAUTO" parametros="GCAAUTOR">CRUD de Autorización</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNTAUTO">
+		<DESCRIPCION>CRUD de Autorización de la aplicación. 
+					 Operaciones: 
+								 'A' - Alta 
+								 'B' - Borrado Lógico
+								 'M' - Modificación
+								 'Z' - Consulta
+					 RETORNO: 0 = Ok
+							  1 = Ok, con END TRANSACTION
+							  8 = Ok, Registro con HO Baja
+							  9 = Error
+		</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCAAUTOR"></PARAMETER>
+		</PARAMETERS>
+		<LOCALS>
+			<LOCAL>GCLAUTOR</LOCAL>
+			<LOCAL>PDE. pendiente añadir mas posibles afectadas</LOCAL>
+		</LOCALS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNFAUTO">
+		<DESCRIPCION>Descarga a Fichero plano las Autorizaciones
+		</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCACAUTO"></PARAMETER>
+			<PARAMETER nombre="GCATOXLS"></PARAMETER>
+		</PARAMETERS>
+		<LOCALS>
+			<LOCAL>GCLAUTOR</LOCAL>
+		</LOCALS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<HELPROUTINE nombre="GCHAUTOR">
+		<DESCRIPCION>Helproutine de Autorizaciones</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNHCODI" parametros="GCAHCODI">Consulta para las Helproutines</CALLNAT>
+		</LLAMADAS>
+	</HELPROUTINE>
+	
+	<PROGRAMA nombre="GCPCTES">
+		<DESCRIPCION>Permite ver el valor de las Ctes y de los permisos del usuario logeado</DESCRIPCION>
+		<MAPAS>
+			<MAP nombre="GCMCTES0">Ctes</MAP>
+			<MAP nombre="GCMCTES1">Permisos</MAP>
+		</MAPAS>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNSEGUR" parametros="GCASEGUR">Comprueba los permisos del usuario</CALLNAT>
+		</LLAMADAS>
+	</PROGRAMA>
+
+	<HELPROUTINE nombre="GCHAPLIC">
+		<DESCRIPCION>Helproutine de Aplicaciones Gob</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNHCODI" parametros="GCAHCODI">Consulta para las Helproutines</CALLNAT>
+		</LLAMADAS>
+	</HELPROUTINE>
+	<HELPROUTINE nombre="GCHUSUGB">
+		<DESCRIPCION>Helproutine de Usuarios de Gobierno</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+			<CALLNAT subprograma="GCNHCODI" parametros="GCAHCODI">Consulta para las Helproutines</CALLNAT>
+		</LLAMADAS>
+	</HELPROUTINE>
+
+	<SUBPROGRAMA nombre="GCNHCODI">
+		<DESCRIPCION>Saca la consulta Standard con los datos de la tabla que reciba por parametro. Orientada a helproutine de codigos
+		</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCAHCODI"></PARAMETER>
+		</PARAMETERS>
+		<LOCALS>
+			<LOCAL>USLUSERS</LOCAL>
+			<LOCAL>GCLTIUSU</LOCAL>
+		</LOCALS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	<SUBPROGRAMA nombre="GCNTOXLS">
+		<DESCRIPCION>Pasa a XLS un fichero plano</DESCRIPCION>	
+		<PARAMETERS>
+			<PARAMETER nombre="GCATOXLS"></PARAMETER>
+		</PARAMETERS>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNONERR" parametros="GCAONERR">Trata los errores</CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+
+	<PROGRAMA nombre="VARIOINI">
+		<DESCRIPCION>Utilidades para inicializar tablas</DESCRIPCION>
+	</PROGRAMA>
+	<PROGRAMA nombre="VARIOSA1">
+		<DESCRIPCION>Utilidades para probar</DESCRIPCION>
+	</PROGRAMA>
+	<PROGRAMA nombre="VARIOSAN">
+		<DESCRIPCION>Utilidades para leer tablas</DESCRIPCION>
+	</PROGRAMA>	
+</GC-TOOLS>

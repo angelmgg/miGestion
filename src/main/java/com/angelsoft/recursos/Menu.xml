@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<MENU>
+	<OPCION nombre="Administración">
+		<OPCIONES>
+			<OPCION nombre="Usuarios" programa="GCPUSUAR"></OPCION>
+			<OPCION nombre="Codigos">
+				<OPCIONES> 
+					<OPCION nombre="Tipos de Usuarios" programa="GCPTUSUA"></OPCION>
+				</OPCIONES>
+			</OPCION>
+			<OPCION nombre="Ctes y Permisos" programa="GCPCTES"></OPCION>
+		</OPCIONES>
+	</OPCION>
+</MENU>

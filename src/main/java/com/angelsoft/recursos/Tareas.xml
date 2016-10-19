@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TAREAS>
+	<TAREA>
+		<FECHA>20160520</FECHA>
+		<DESCRIPCION>Ver si se usa la tabla GC-DE-OBJETOS. Se supone que se creo para reflejar todos los objetos Natural de los distintos entornos. Posiblemente no sea necesaria</DESCRIPCION>
+		<ESTADO>Resuelta</ESTADO>
+		<OBSERVACION>Se usa.</OBSERVACION>
+	</TAREA>
+	<TAREA>
+		<FECHA>20160520</FECHA>
+		<DESCRIPCION>Deberiamos ver como reflejar de algún modo los elementos Natural que son un Web-Service, posiblemente se puedan detectar comprobando su codificación</DESCRIPCION>
+		<ESTADO>Pendiente</ESTADO>
+	</TAREA>	
+	<TAREA>
+		<FECHA>20160818</FECHA>
+		<DESCRIPCION>Mostrar las delegacioens ordenades por fecha fin descendente. Los vacios salen primero</DESCRIPCION>
+		<ESTADO>Pendiente</ESTADO>
+	</TAREA>
+	<TAREA>
+		<FECHA>20160818</FECHA>
+		<DESCRIPCION>En la consulta de Areas, en las opciones poner Aplicaciones en lugar de Detalle</DESCRIPCION>
+		<ESTADO>Resuelta</ESTADO>
+		<OBSERVACION>Hecho</OBSERVACION>
+	</TAREA>
+	<TAREA>
+		<FECHA>20160818</FECHA>
+		<DESCRIPCION>Añadir una descripción corta a las Situaciones de despliegues</DESCRIPCION>
+		<ESTADO>En Proceso</ESTADO>
+		<OBSERVACION>Solicitado cambio BBDD</OBSERVACION>
+	</TAREA>
+	<TAREA>
+		<FECHA>20160818</FECHA>
+		<DESCRIPCION>Si no se tiene acceso a un despliegue pq una delegación, detallarlo en el aviso</DESCRIPCION>
+		<ESTADO>Pendiente</ESTADO>
+	</TAREA>
+	<TAREA>
+		<FECHA>20160818</FECHA>
+		<DESCRIPCION>Quitar el Prefijo "Relación de" de todas las consultas</DESCRIPCION>
+		<ESTADO>Resuelta</ESTADO>
+		<OBSERVACION>Hecho</OBSERVACION>
+	</TAREA>
+	<TAREA>
+		<FECHA>20160818</FECHA>
+		<DESCRIPCION>A la hora de mostrar los elementos Natural a seleccionar, en el filtro, añadir la posibilidad de Ordenar por Nombre, Fc. Mod o Fc. Compilado
+		Modificiar el literal Usuario por Usuario modificación</DESCRIPCION>
+		<ESTADO>Resuelta</ESTADO>
+		<OBSERVACION>Se ha modificado el literal y se ha incorporado la opcion de ordenar por los tres criterios</OBSERVACION>
+	</TAREA>
+	<TAREA>
+		<FECHA>20160818</FECHA>
+		<DESCRIPCION>Usar el filedir de Pro para buscar elementos en PRO</DESCRIPCION>
+		<ESTADO>Pendiente</ESTADO>
+	</TAREA>
+	<TAREA>
+		<FECHA>20160818</FECHA>
+		<DESCRIPCION>En el momento que se quiera proceder a despleguar un elemento natural, guardar en la entidad Natural el CRC de los elementos de PRO, para poder
+		comprobar que en el momento del pase estos elementos no han cambiado.</DESCRIPCION>
+		<ESTADO>En Proceso</ESTADO>
+		<OBSERVACION>Solicitado cambio BBDD</OBSERVACION>
+	</TAREA>
+		<TAREA>
+		<FECHA>20160818</FECHA>
+		<DESCRIPCION>Antes de poner en marcha el Proyecto hay que reconstruir los Filedir y dejar todo sin errores (Z:\control_calidad\validacion_objetos.xls</DESCRIPCION>
+		<ESTADO>Pendiente</ESTADO>
+	</TAREA>
+	<TAREA>
+		<FECHA>20160818</FECHA>
+		<DESCRIPCION>Las consultas Standard se elegiran por nombre y se pasara todo (Ocultos, Comunes, Standard, Opciones ...)</DESCRIPCION>
+		<ESTADO>Pendiente</ESTADO>
+	</TAREA>	
+	<TAREA>
+		<FECHA>20160811</FECHA>
+		<DESCRIPCION>YMCGEDOC - Usar solo el Parser XML (Revisar *GEDOC)</DESCRIPCION>
+		<ESTADO>Pendiente</ESTADO>
+	</TAREA>
+	<TAREA>
+		<FECHA>20160912</FECHA>
+		<DESCRIPCION>Modulo relacionada con UTNENTOR dentro de GCTOOLS</DESCRIPCION>
+		<ESTADO>Pendiente</ESTADO>
+	</TAREA>
+	<TAREA>
+		<FECHA>20160818</FECHA>
+		<DESCRIPCION></DESCRIPCION>
+		<ESTADO>Pendiente</ESTADO>
+	</TAREA>	
+</TAREAS>

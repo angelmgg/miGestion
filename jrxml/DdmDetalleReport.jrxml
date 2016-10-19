@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DdmDetalleReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="479de806-6906-4cec-88e8-7826a32ee8b2">
+	<property name="ireport.zoom" value="1.7715610000000037"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="logoIzquierda" class="java.lang.String"/>
+	<parameter name="logoDerecha" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\DatosAngel\\WorkspaceAxpe001\\gestion\\src\\main\\java\\com\\angelsoft\\recursos\\jrxml\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="db" class="java.lang.Long"/>
+	<field name="fnr" class="java.lang.Long"/>
+	<field name="listaCampos" class="java.util.List">
+		<fieldDescription><![CDATA[listaCampos]]></fieldDescription>
+	</field>
+	<field name="listaSuperDescriptores" class="java.util.List"/>
+	<field name="tieneFks" class="java.lang.Boolean"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="22" splitType="Stretch">
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="22" uuid="fa9523ff-5ad0-441b-970f-a21476f7d6f8"/>
+				<subreportParameter name="titulo">
+					<subreportParameterExpression><![CDATA[$P{titulo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logoDerecha">
+					<subreportParameterExpression><![CDATA[$P{logoDerecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logoIzquierda">
+					<subreportParameterExpression><![CDATA[$P{logoIzquierda}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[".\\CabeceraReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="1" width="555" height="22" isRemoveLineWhenBlank="true" uuid="03aeb2da-be70-4e3f-a576-c1a819391361"/>
+				<subreportParameter name="fnr">
+					<subreportParameterExpression><![CDATA[$F{fnr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre">
+					<subreportParameterExpression><![CDATA[$F{nombre}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="db">
+					<subreportParameterExpression><![CDATA[$F{db}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="descripcion">
+					<subreportParameterExpression><![CDATA[$F{descripcion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaCampos})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[".\\DdmCamposReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="23">
+			<subreport isUsingCache="false">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="22" isRemoveLineWhenBlank="true" uuid="cebfb141-0f4a-43b5-9b6d-f92e19e60ea7"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaSuperDescriptores})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[".\\DdmSuperReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="22">
+			<printWhenExpression><![CDATA[$F{tieneFks}]]></printWhenExpression>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="22" isRemoveLineWhenBlank="true" uuid="bebd808a-d744-4288-aa28-10f319663a29"/>
+				<subreportParameter name="fnr">
+					<subreportParameterExpression><![CDATA[$F{fnr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nombre">
+					<subreportParameterExpression><![CDATA[$F{nombre}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="db">
+					<subreportParameterExpression><![CDATA[$F{db}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="descripcion">
+					<subreportParameterExpression><![CDATA[$F{descripcion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaCampos})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[".\\ForeingReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="21"/>
+	</detail>
+	<columnFooter>
+		<band height="21" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="23">
+			<subreport isUsingCache="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="22" uuid="9960ae3f-2aa5-459d-bc10-3359216aba95"/>
+				<subreportParameter name="titulo">
+					<subreportParameterExpression><![CDATA[$P{titulo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[".\\PieReport.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="434" y="0" width="80" height="20" uuid="b3803963-c775-4774-93fe-4dbc8004502d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pág. "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="0" width="40" height="20" uuid="6b7bfe46-1cd0-4815-aab9-a02cca1c6e34"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

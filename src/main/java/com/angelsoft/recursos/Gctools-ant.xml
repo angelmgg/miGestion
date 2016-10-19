@@ -1,0 +1,1388 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<GC-TOOLS>
+	<PROGRAMA nombre="GCP1OBJE">
+		<DESCRIPCION> 
+		Genera 3 ficheros temporales:
+				- El primero lo usara para dejar los logs.
+				- El segundo meterá los directorios que hay en '/PRD/apli/fuser63' o sea, las librerias.
+				- En el tercero mete los ficheros a subir.
+				- Mete en GCLDOBJE los elementos que hay en los distintos entornos. 
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNHOST">Detecta el entorno en el que se ejecuta</CALLNAT>
+			<CALLNAT subprograma="GCNDIRGE">Detecta las librerias, leyendo los directorios de '/PRD/apli/fuser63'</CALLNAT>
+			<CALLNAT subprograma="GCNFISAG">Obtiene los ficheros de una carpeta</CALLNAT>
+			<CALLNAT subprograma="GCNFITMP">Genera los 3 ficheros temporales</CALLNAT>
+			<CALLNAT subprograma="GCNDNUME">Para dar de alta en GCLDOBJE</CALLNAT>
+			<CALLNAT subprograma="GCNFICGE">Para borrar los ficheros creados</CALLNAT>
+			<CALLNAT subprograma="GCNEMAIL">Para generar un correo con los logs si hubo errores</CALLNAT>
+		</LLAMADAS>
+		<CRUD>
+			<LOCAL nombre="GCLDOBJE"></LOCAL>
+			<LOCAL nombre="GCLDSEGU"></LOCAL>
+		</CRUD>
+	</PROGRAMA>
+
+	<PROGRAMA nombre="GCP2OBJE">
+		<DESCRIPCION> 
+		Validación de OBJETOS entre entornos.
+				Obtiene diferencias entre objetos. Genera 3 ficheros.
+				/gctools/seguimiento/historico_modifica/comparacion_entornos.csv
+				/gctools/seguimiento/temp/comparacion_entornos.src
+				/gctools/seguimiento/temp/comparacion_entornos.dif
+		</DESCRIPCION>	
+		<CRUD>
+			<LOCAL nombre="GCLDOBJE"></LOCAL>
+		</CRUD>
+	</PROGRAMA>
+
+	<PROGRAMA nombre="GCP3OBJE" compila="NO">
+		<DESCRIPCION> 
+		Crea /gctools/seguimiento/logs/comparacion_entornos_Fase3.log
+				Borra el directorio /gctools/seguimiento/control_calidad/INFORME_NOMBRE (variable no definida)
+				.... revisar
+				
+				Se leen los objetos de GCLBOOBJE.
+				
+				Comprueba si un objeto esta en los 3 entornos
+				Comprueba si los CRC de los 3 entornos son iguales
+				Comprueba si la hora del SRC es mayor que la del GP (salvo CopyCodes y Textos)
+				...
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNDIRGE">Borra un fichero, crea directorio</CALLNAT>
+		</LLAMADAS>
+		<CRUD>
+			<LOCAL nombre="GCLDOBJE"></LOCAL>
+		</CRUD>
+	</PROGRAMA>
+
+	<PROGRAMA nombre="GCPCAPLI">
+		<DESCRIPCION> 
+		Consulta de Aplicaciones
+				Puede ejecutarse directamente o ser llamado, en funcion de eso, pedira parámetros o no.
+		</DESCRIPCION>
+		<LLAMADAS>
+			<FETCH programa="GCPGAPLI"></FETCH>
+			<FETCH programa="GCPCMODU"></FETCH>
+			<INCLUDE copycode="G3CMAPA"></INCLUDE>
+			<INCLUDE copycode="G3CCONSU"></INCLUDE>
+			<INCLUDE copycode="UTCNAT00"></INCLUDE>
+		</LLAMADAS>
+		<CRUD>
+			<LOCAL nombre="GCLDAPLI"></LOCAL>
+		</CRUD>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGAPLI" compila="NO">
+		<DESCRIPCION> 
+		Si recibe parametros, los trata, si no los recibe entra en modo inserción.
+		        OPERACION = 'ENTIDAD'
+				OPERACION = 'BASEDATOS'
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="G2NACCES"></CALLNAT>
+			<CALLNAT subprograma="G2NMSG"></CALLNAT>
+			<CALLNAT subprograma="G3NOBSER"></CALLNAT>
+			<CALLNAT subprograma="G3NCERRO"></CALLNAT>
+		</LLAMADAS>
+		<CRUD>
+			<LOCAL nombre="GCLDAPLI"></LOCAL>
+			<LOCAL nombre="GCLDDGRP"></LOCAL>
+			<LOCAL nombre="G3LOBSERVA"></LOCAL>
+		</CRUD>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPCMODU">
+		<DESCRIPCION></DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPCAUTO">
+		<DESCRIPCION> 
+		Autorizaciones del Despliegue
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPCDELE">
+		<DESCRIPCION> 
+		Delegaciones
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPCDESP">
+		<DESCRIPCION> 
+		Despliegues
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPCDGRP">
+		<DESCRIPCION> 
+		Grupos
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPCDUSR">
+		<DESCRIPCION> 
+		Usuarios
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPCENTI">
+		<DESCRIPCION> 
+		Entidades
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPMODU">
+		<DESCRIPCION> 
+		Modulos
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPNATU">
+		<DESCRIPCION> 
+		Entidades Natural
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPPROY">
+		<DESCRIPCION> 
+		Proyectos
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPCRON" cron="SI">
+		<DESCRIPCION> 
+		Ejecuta Cron.
+		        Esta pensado para la ejecucion CRON cada 10 minutos. (Se puede programar eventos en los minutos 00,10, 20, 30, 40, 50)
+				Se ejecuta mediante CRONTAB entre las 06:00 y 00:00 cada 10 minutos
+		</DESCRIPCION>
+		<LLAMADAS>
+			<BATCH programa="GCPSOBJE" minutos="00, 20, 40" dias="LUNES, MARTES, MIERCOLES, JUEVES, VIERNES" horaMax="23:30" horaEvitar="00:00"></BATCH>
+			<BATCH programa="GCPZOBJE" dias="LUNES, MARTES, MIERCOLES, JUEVES, VIERNES" hora="23:30"></BATCH>
+			<CALL userexit="UTPJCL41"></CALL>
+		</LLAMADAS>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPDESPL">
+		<DESCRIPCION> 
+		Despliegue automático (Programa principal).
+		        Cada 5 minutos ejecuta los despliegues y vueltas atrás pendientes que le de tiempo a llevar a cabo en 3 minutos
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNDECOB"></CALLNAT>
+			<CALLNAT subprograma="GCNDECVA">Comprueba si es viable la vuelta atras</CALLNAT>
+			<CALLNAT subprograma="GCNDENAT">Despliega objetos Natural</CALLNAT>
+			<CALLNAT subprograma="GCNDECON">Despliega consultas</CALLNAT>
+			<CALLNAT subprograma="GCNDECOD">Despliega codigos</CALLNAT>
+			<CALLNAT subprograma="GCNDEPLA">Despliega plantillas RTF</CALLNAT>
+			<CALLNAT subprograma="GCNDEGRU">Despliega Grupos</CALLNAT>
+			<CALLNAT subprograma="GCNDEPRO">Despliega Procesos</CALLNAT>
+			<CALLNAT subprograma="GCNDEGRP">Despliega Grupos-Procesos</CALLNAT>
+			<CALLNAT subprograma="GCNDEJCL">Despliega JCL</CALLNAT>
+			<CALLNAT subprograma="GCNDEREF">Actualiza referencias cruzadas</CALLNAT>
+			<CALLNAT subprograma="GCNANNAT">Anula el despliegue de objetos Natural</CALLNAT>
+			<CALLNAT subprograma="GCNANCON">Anula despliegue de consultas</CALLNAT>
+			<CALLNAT subprograma="GCNANCOD">Anula despliegue de codigos</CALLNAT>
+			<CALLNAT subprograma="GCNANPLA">Anula despliegue de plantillas RTF</CALLNAT>
+			<CALLNAT subprograma="GCNANGRU">Anula despliegue de Grupos</CALLNAT>
+			<CALLNAT subprograma="GCNANPRO">Anula despliegue de Procesos</CALLNAT>
+			<CALLNAT subprograma="GCNANGRP">Anula despliegue de Grupos-Procesos</CALLNAT>
+			<CALLNAT subprograma="GCNANJCL">Anula despliegue de JCL</CALLNAT>
+			<CALLNAT subprograma="GCNANREF">Actualiza referencias cruzadas</CALLNAT>
+			<CALLNAT subprograma="GCNDEGER"></CALLNAT>
+			<CALLNAT subprograma="GCNDEEMA"></CALLNAT>
+			<CALLNAT subprograma="GCNEMAIL"></CALLNAT>
+			<INCLUDE copycode="GCCDELOG">Escritura en el fichero de LOG</INCLUDE>
+			<INCLUDE copycode="GCCDECOT">Control transacciones</INCLUDE>
+		</LLAMADAS>
+		<CRUD>
+			<LOCAL nombre="GCLDDESP"></LOCAL>
+			<LOCAL nombre="GCLDECTE"></LOCAL>
+		</CRUD>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPDIRGE" pruebas="si">
+		<DESCRIPCION> 
+		Pruebas de GCNDIRGE
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNDIRGE"></CALLNAT>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPEMAIL" pruebas="si">
+		<DESCRIPCION> 
+		Pruebas de GCNEMAIL
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNEMAIL"></CALLNAT>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPENUME" utilidad="si">
+		<DESCRIPCION> 
+		Relativo a las numeraciones. Sirve para inicializarlas o consultarlas
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGAUTO" compila="NO">
+		<DESCRIPCION> 
+		Mantenimiento de AUTORIZACIONES del DESPLIEGUE
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGDELE" compila="NO">
+		<DESCRIPCION> 
+		Mantenimiento de DELEGACIONES del DESPLIEGUE
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGDESP" compila="NO">
+		<DESCRIPCION> 
+		Gestion de DESPLIEGUEs
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGDGRP" compila="NO">
+		<DESCRIPCION> 
+		Gestion de Grupos
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGDUSR" compila="NO">
+		<DESCRIPCION> 
+		Gestion de Usuarios
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGECSV" pruebas="si">
+		<DESCRIPCION> 
+		Programa Pruebas para gestion CSV
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNGECSV"></CALLNAT>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGEDOC" pruebas="si">
+		<DESCRIPCION> 
+		Programa Pruebas para gestion documental (ALFRESCO)
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNGDOSE"></CALLNAT>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGEPDF" pruebas="si">
+		<DESCRIPCION> 
+		Programa Pruebas para gestion PDF
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNGEPDF"></CALLNAT>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGETI1">
+		<DESCRIPCION> 
+		Obtener y guardar la IP del cliente en la conexión
+		        El JSP ipsrc.jsp inyecta el valor de la ip del cliente
+				Lo guardamos en una variable de entorno para su posterior recuperación y uso
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALL userexit="GCUVARUX"></CALL>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGETIP">
+		<DESCRIPCION> 
+		Obtener y guardar la IP del cliente en la conexión
+		        El JSP ipsrc.jsp inyecta el valor de la ip del cliente
+				Lo guardamos en una variable de entorno para su posterior recuperación y uso
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALL userexit="GCUVARUX"></CALL>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPMAXAP">
+		<DESCRIPCION> 
+		Este programa deberÃ¡ejecutarse para informar al usuario que ha alcanzado el numero maximo de conexiones permitidas. 
+				1.- Conexiones maximo por Ap ( Imposible tener mas ) 
+				2.- Conexiones maximo en total 
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCPFINTA"></CALLNAT>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPMENU">
+		<DESCRIPCION> 
+		Menu Principal
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="USNMENU1"></CALLNAT>
+			<CALLNAT subprograma="PRNMENU0"></CALLNAT>
+		</LLAMADAS>	
+		<CRUD>
+			<LOCAL nombre="USLUSERS"></LOCAL>
+		</CRUD>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGMODU" compila="NO">
+		<DESCRIPCION> 
+		Gestion de Módulos
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGPROY" compila="NO">
+		<DESCRIPCION> 
+		Gestion de Proyectos
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPSNATU" compila="NO">
+		<DESCRIPCION> 
+		Gestion de las operaciones con entidades NATU
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPSOBJE">
+		<DESCRIPCION> 
+		Sincronización OBJETOS entornos
+					1. Genera modificaciones en la BD
+					2. Comprueba diferencias
+					3. Genera diferencias
+					
+				PARAMETRO ENTRADA:
+					OPERACION: SINCRONIZAR (con CRC. Primera vez o semanal)
+					ACTUALIZAR  (con CRC. Modificaciones ultimos 40min)
+					DIF-GENERAR (Genera fichero dif. entre entornos)
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPSTART">
+		<DESCRIPCION> 
+		Programa de inicio para obligacion de cambio de password
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNPASSW"></CALLNAT>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPVOBJE">
+		<DESCRIPCION> 
+		Validacion entre entornos:
+					- Inconsistencias en FILEDIR.SAG
+					- FILESYSTEM que existen todos los objetos del FILEDIR
+					- No existan en FILESYSTEM mas objetos de los del FILEDIR
+					- DDM y SUBROUTINES EXTERNAS se llaman igual en 3 entornos
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNFICGE"></CALLNAT>
+			<CALLNAT subprograma="GCNDIRGE"></CALLNAT>
+			<CALLNAT subprograma="GCNEMAIL"></CALLNAT>
+			<CALLNAT subprograma="GCNFITMP"></CALLNAT>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPZOBJE">
+		<DESCRIPCION> 
+		Sincronizacion total y diferencias entre objetos
+		</DESCRIPCION>
+		<LLAMADAS>
+			<FETCH programa="GCPSOBJE">Sincronizar</FETCH>
+			<FETCH programa="GCPSOBJE">Dif-generar</FETCH>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPLOCDU">
+		<DESCRIPCION> 
+		Sincronizacion total y diferencias entre objetos
+		</DESCRIPCION>
+		<LLAMADAS>
+			<FETCH programa="GCPSOBJE">Sincronizar</FETCH>
+			<FETCH programa="GCPSOBJE">Dif-generar</FETCH>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="IMPORT">
+		<DESCRIPCION> 
+		Importa consultas, opciones de consultas y codigos. De: 
+					/home/ssl5845/s/gclconsu.db
+					/home/ssl5845/s/gclcoopc.db
+					/home/ssl5845/s/gclcodig.db
+		</DESCRIPCION>
+		<CRUD>
+			<LOCAL nombre="GCLCOOPC"></LOCAL>
+		</CRUD>
+	</PROGRAMA>
+	
+	
+	<PROGRAMA nombre="KK" borrable="si">
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="KK2KK3" borrable="si">
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="PR-*" borrable="si">
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPPORFI" pruebas="si">
+		<DESCRIPCION> 
+		Para duplicar LOCAL´s
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNPORFI"></CALLNAT>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPSHCMD" pruebas="si">
+		<DESCRIPCION> 
+		Programa Pruebas con la funcion GCNSHCMD
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNSHCMD"></CALLNAT>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPPWCHG">
+		<DESCRIPCION> 
+		Cambio de palabras de paso
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNPASSW"></CALLNAT>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPGDOSE" pruebas="si">
+		<DESCRIPCION> 
+		Programa Pruebas para gestion documental (ALFRESCO)
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNGDOSE"></CALLNAT>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPFICGE" pruebas="si">
+		<DESCRIPCION> 
+		Pruebas de GCNFICGE
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNFICGE"></CALLNAT>
+		</LLAMADAS>	
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPFINAL" applinx="si">
+		<DESCRIPCION> 
+		Este programa deberá invocarse para cerrar la conexión 
+				con aplicaciones ejecutadas con ApplinX. El JSP AppGenDesc envia un logoff y 
+				este programa debe atender mediante la rutina de error a la desconexión
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPFINTA" applinx="si">
+		<DESCRIPCION> 
+		Este programa trata el error generado al desconectarse la sesion de ApplinX.
+		        El JSP AppGenDesc envia un logoff y este programa debe atender mediante la 
+				rutina de error a la desconexión
+		</DESCRIPCION>
+	</PROGRAMA>
+	
+	<PROGRAMA nombre="GCPFISEL" pruebas="si">
+		<DESCRIPCION> 
+		Programa Pruebas para gestion documental (ALFRESCO) desde NATURAL
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNFISEL"></CALLNAT>
+		</LLAMADAS>
+	</PROGRAMA>
+	
+	<SUBPROGRAMA nombre="G2NACCES">
+		<DESCRIPCION> 
+		
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNPORFI">
+		<DESCRIPCION> 
+		Subprograma para gestion de firma electronica desde NATURAL implementa varios metodos de 
+				acceso al componente AMAP-PORTAFIRMAS a través de Web Services
+				OPERACIONES:
+					- CREAR-PETICION
+					- ENVIAR-PETICION
+					- ACTUALIZAR-PETICION
+					- INSERTAR-DOCUMENTO
+					- INSERTAR-FIRMANTES
+					- BORRAR-DOCUMENTO
+					- BORRAR-FIRMANTES
+					- BORRAR-PETICION
+					- GET-CARGOS
+					- GET-COMENTARIOS
+					- GET-DOCUMENTO
+					- GET-ESTADO-PETICION
+					- GET-ESTADOS
+					- GET-FIRMA
+					- GET-HISTORICO
+					- GET-INFORME-FIRMA
+					- GET-INFORME-FIRMA-URL
+					- GET-PETICION
+					- GET-TIPOS-DOCUMENTO
+					- GET-USUARIOS
+					- GET-CSV
+					- GET-DOCUMENTO-DETALLE
+					- GET-FIRMA-DETALLE
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNDIRGE"></CALLNAT>
+			<CALLNAT subprograma="UTNENTOR"></CALLNAT>
+			<CALLNAT subprograma="GCNFICGE"></CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNGECSV">
+		<DESCRIPCION> 
+		Subprograma para gestion CSV desde NATURAL implementa varios metodos de acceso al 
+				componente AMAP-CSV a través de Web Services.
+				OPERACIONES:
+					- PIE-CON-FIRMA
+					- PIE-SIN-FIRMA
+					- CODIFICAR
+					- DECODIFICAR
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNDIRGE"></CALLNAT>
+			<CALLNAT subprograma="UTNENTOR"></CALLNAT>
+			<CALLNAT subprograma="GCNFICGE"></CALLNAT>
+		</LLAMADAS>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNGEPDF">
+		<DESCRIPCION> 
+		Subprograma para gestión de documentos PDF desde NATURAL implementa varios metodos de 
+				acceso al componente AMAP-PDF a través de Web Services.
+				OPERACIONES:
+					- CONCATENAR
+					- DIVIDIR
+					- GENERAR
+					- GENERAR-ASINCRONO
+					- GET-ARCHIVOS
+					- MANIPULAR
+					- MANIPULAR-METADATOS
+					- OBTENER-GENERADO
+					- OBTENER-METADATOS
+					- PROTEGER
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNDIRGE"></CALLNAT>
+			<CALLNAT subprograma="UTNENTOR"></CALLNAT>
+			<CALLNAT subprograma="GCNFICGE"></CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNHOST">
+		<DESCRIPCION> 
+		Devuelve el entorno en el que nos encontramos.
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNOFIMS" applinx="si">
+		<DESCRIPCION> 
+		Se conecta al cliente para enviar solicitudes relativas a la integración con ofimatica 
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="G3NMSG">
+		<DESCRIPCION> 
+		
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="G3NOBSER">
+		<DESCRIPCION> 
+		
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="G3NCERRO">
+		<DESCRIPCION> 
+		
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+
+	<SUBPROGRAMA nombre="GCNFITMP">
+		<DESCRIPCION> 
+		Genera nombres de ficheros de manera secuencial. 
+				Por defecto = $WRK/tmp99999.txt
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNDNUME"></CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+
+	<SUBPROGRAMA nombre="GCNDNUME">
+		<DESCRIPCION> 
+		Para gestionar lo relativo a secuenciales.
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNFTOUC">
+		<DESCRIPCION> 
+		Realización de FTOUCH en un directorio.
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNSHCMD">
+		<DESCRIPCION> 
+		Ejecucion de comando permitidos en sistema operativo
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="GCUSHCMD"></CALL>		
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNSRCSL">
+		<DESCRIPCION> 
+		Eliminación de numeros de linea en objetos
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="GCUSRCSL"></CALL>		
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="UTNBZN01">
+		<DESCRIPCION> 
+		Subprograma que rellena una tabla de 79*23 con todos los 
+				parametros necesario para la dll que lanza el BUZON
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="USR1053N"></CALL>
+			<CALLNAT subprograma="GCNOFIMS"></CALLNAT>			
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="UTNDEL00">
+		<DESCRIPCION> 
+		Subprograma que rellena una tabla de 79*23 con todos los 
+				parametros necesario para que la dll que borra funcione
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="USR1053N"></CALL>
+			<CALLNAT subprograma="GCNOFIMS"></CALLNAT>			
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="UTNFOX00">
+		<DESCRIPCION> 
+		Subprograma que rellena una tabla de 79*23 con todos los 
+				parametros necesario para que la dll que lanza el navegador 
+				(Firefox o el establecido por defecto si no lo hubiera) funcione
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="USR1053N"></CALL>
+			<CALLNAT subprograma="GCNOFIMS"></CALLNAT>			
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="UTNFTP00">
+		<DESCRIPCION> 
+		Subprograma que rellena una tabla de 79*23 con todos los 
+				parametros necesario para que la dll que hace el FTP funcione.
+				En espera de que el administrador de Unix resuelva el problema 
+				con los permisos de los archivos que se pasan de PC a UX. se 
+				coloca una pantalla para esperar el fin de la transferencia y 
+				cambiar los permisos con un shell.
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="USR1053N"></CALL>
+			<CALL userexit="shcmd"></CALL>
+			<CALLNAT subprograma="GCNOFIMS"></CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="UTNFTP01">
+		<DESCRIPCION> 
+		Subprograma que rellena una tabla de 79*23 con todos los 
+				parametros necesario para que la dll que hace el FTP funcione.
+				En espera de que el administrador de Unix resuelva el problema
+				con los permisos de los archivos que se pasan de PC a UX. se 
+				coloca una pantalla para esperar el fin de la transferencia y
+				cambiar los permisos con un shell. 
+				Este programa se basa en el UTNFTP00.
+				Se diferencia en que el UTNFTP01 tiene un parámetro más.
+				Con este parámetro (DOCUMENPC) se hace posible el usar nombres
+				distintos para el Fichero de UNIX y el Fichero del PC (en el 
+				UTNFTP00 el nombre del Fichero en UNIX es el mismo que el nombre
+				del FIchero en el PC).
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="USR1053N"></CALL>
+			<CALL userexit="shcmd"></CALL>
+			<CALLNAT subprograma="GCNOFIMS"></CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="UTNOUT00">
+		<DESCRIPCION> 
+		Crea el mensaje y le envia
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="USR1053N"></CALL>
+			<CALLNAT subprograma="GCNOFIMS"></CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="UTNOUT01">
+		<DESCRIPCION> 
+		Crea el mensaje y le envia
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="USR1053N"></CALL>
+			<CALLNAT subprograma="GCNOFIMS"></CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="UTNRMI01">
+		<DESCRIPCION> 
+		Subprograma que rellena una tabla de 79*23 con todos los 
+				parametros necesario para que la dll que lanza el WORD 
+				funcione con RMI.
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="USR1053N"></CALL>
+			<CALLNAT subprograma="GCNOFIMS"></CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="UTNWRDLL">
+		<DESCRIPCION> 
+		Conexión con Wrapper
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="USR1053N"></CALL>
+			<CALLNAT subprograma="GCNOFIMS"></CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="UTNXLS00">
+		<DESCRIPCION> 
+		Lanza Excel
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="USR1053N"></CALL>
+			<CALLNAT subprograma="GCNOFIMS"></CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="UTNXLS01">
+		<DESCRIPCION> 
+		Crea una hoja excel con el fichero que pasamos Subprograma
+				que rellena una tabla de 79*23 con todos los desde NATURAL 
+				parametros necesario para que la dll que hace el FTP funcione.
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="USR1053N"></CALL>
+			<CALLNAT subprograma="GCNOFIMS"></CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="UTNPPT00">
+		<DESCRIPCION> 
+		Subprograma que rellena una tabla de 79*23 con todos los 
+				parametros necesario para que la dll que hace el FTP funcione
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALL userexit="USR1053N"></CALL>
+			<CALLNAT subprograma="GCNOFIMS"></CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNGDOSE">
+		<DESCRIPCION> 
+		Subprograma para gestión documental (ALFRESCO)desde NATURAL permite
+				seleccionar un fichero desde el Explorador Windows del PC y subirlo 
+				al gestor documental a través de Web Services
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNDIRGE"></CALLNAT>
+			<CALLNAT subprograma="GCNFISEL"></CALLNAT>
+			<CALLNAT subprograma="GCNFICGE"></CALLNAT>
+			<CALLNAT subprograma="GCNGEDOC"></CALLNAT>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNGEDOC">
+		<DESCRIPCION> 
+		Subprograma para gestion documental (ALFRESCO-CMIS) desde NATURAL implementa varios 
+				metodos de acceso al gestor documental a través de Web Services.
+				OPERACIONES:
+					- GET-FICHERO
+					- GET-METADATOS-FICHERO
+					- EXISTE-FICHERO
+					- ADD-FICHERO
+					- UPDATE-DOCUMENTO
+					- DELETE-FICHERO
+					- GET-METADATOS-TIPODOCUMENTAL
+					- GET-FICHERO-QUERY
+					- ASOCIAR-METADATOS-FICHERO
+					- GET-FICHERO-FILTRO-METADATOS
+					- GET-FICHEROS
+					- GET-FICHEROS-ASINCRONO
+					- GET-FICHEROS-ASINCRONO-ESTADO
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNFICGE"></CALLNAT>
+			<CALLNAT subprograma="UTNENTOR"></CALLNAT>
+			<INCLUDE copycode="PARSER_X"></INCLUDE>
+			<INCLUDE copycode="XMCGEDOC"></INCLUDE>
+		</LLAMADAS>
+	</SUBPROGRAMA>
+
+	<SUBPROGRAMA nombre="GCNDIRGE">
+		<DESCRIPCION> 
+		Subprograma para gestion de ficheros (operaciones) desde NATURAL
+		</DESCRIPCION>
+		<OPERACIONES>
+			<OPERACION valor="EXISTE"></OPERACION>
+			<OPERACION valor="CREAR"></OPERACION>
+			<OPERACION valor="BORRAR"></OPERACION>
+			<OPERACION valor="MOVER"></OPERACION>
+			<OPERACION valor="COMPRIMIR"></OPERACION>
+			<OPERACION valor="PERMISOS"></OPERACION>
+			<OPERACION valor="LISTAR-FIC"></OPERACION>
+			<OPERACION valor="LISTAR-DIR"></OPERACION>
+			<OPERACION valor="DESCOMPRIMIR"></OPERACION>
+			<OPERACION valor="BORRAR-REC"></OPERACION>
+		</OPERACIONES>
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNDBGEM"></CALLNAT>
+			<CALL userexit="GCUFILES"></CALL>		
+		</LLAMADAS>	
+	</SUBPROGRAMA>
+
+	<SUBPROGRAMA nombre="GCNDBGEM">
+		<DESCRIPCION> 
+		
+		</DESCRIPCION>
+	</SUBPROGRAMA>
+
+	<SUBPROGRAMA nombre="GCNFISAG">
+		<DESCRIPCION> 
+		Gestion de FILEDIR.SAG
+		  - SINCRONIZAR:
+		  - ACTUALIZAR:
+		  - LISTAR:
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALL userexit="GCUFISAG"></CALL>	
+		</LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNPASSW">
+		<DESCRIPCION>Gestión de contraseñas
+		</DESCRIPCION>	
+		<LLAMADAS>
+			<CALLNAT subprograma="GCNSHCMD"></CALLNAT>
+			<CALLNAT subprograma="GCNFICGE"></CALLNAT>
+		</LLAMADAS>	
+	</SUBPROGRAMA>
+
+	<SUBPROGRAMA nombre="GCNDECOB">
+		<DESCRIPCION>Comprobación de situación de objetos a desplegar
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNDECVA">
+		<DESCRIPCION>Comprueba si es viable la vuelta atras
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNDENAT">
+		<DESCRIPCION>Despliega objetos Natural
+		</DESCRIPCION>	
+		<LLAMADAS>
+		   <CALLNAT subprograma="GCNCOMPL">Compila los objetos creados y modificados y los que referencian a estos</CALLNAT>
+		 </LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNDECON">
+		<DESCRIPCION>Despliega consultas
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNDECOD">
+		<DESCRIPCION>Despliega codigos
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNDEPLA">
+		<DESCRIPCION>Despliega plantillas RTF
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNDEGRU">
+		<DESCRIPCION>Despliega Grupos
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNDEPRO">
+		<DESCRIPCION>Despliega Procesos
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNDEGRP">
+		<DESCRIPCION>Despliega Grupos-Procesos
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNDEJCL">
+		<DESCRIPCION>Despliega JCL
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNDEDIR">
+		<DESCRIPCION>Creación estructura directorios para despliegue
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNDEREF">
+		<DESCRIPCION>Actualiza referencias cruzadas
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNANNAT">
+		<DESCRIPCION>Anula el despliegue de objetos Natural
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNANCON">
+		<DESCRIPCION>Anula despliegue de consultas
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNANCOD">
+		<DESCRIPCION>Anula despliegue de codigos
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNANPLA">
+		<DESCRIPCION>Anula despliegue de plantillas RTF
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNANGRU">
+		<DESCRIPCION>Anula despliegue de Grupos
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNANPRO">
+		<DESCRIPCION>Anula despliegue de Procesos
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNANGRP">
+		<DESCRIPCION>Anula despliegue de Grupos-Procesos
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNANJCL">
+		<DESCRIPCION>Anula despliegue de JCL
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNAXREF" compila="no">
+		<DESCRIPCION>Actualiza las referencias cruzadas de un objeto VACIO
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNCOMPL" compila="no">
+		<DESCRIPCION>Compilacion de un objeto natural
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNANREF">
+		<DESCRIPCION>Actualiza referencias cruzadas
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNDEGER">
+		<DESCRIPCION>Graba errores en tabla de errores por despliegue
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNDEEMA">
+		<DESCRIPCION>Envio de email al finalizar despliegue / vuelta atras
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNEMAIL">
+		<DESCRIPCION>Subprograma para el envio de correos electronicos desde Natural
+		</DESCRIPCION>	
+	</SUBPROGRAMA>
+
+	<USEREXIT nombre="GCUFILES">
+		<DESCRIPCION> 
+		
+		</DESCRIPCION>
+		<OPERACIONES>
+			<OPERACION valor="201">EXISTE</OPERACION>
+			<OPERACION valor="202">CREAR</OPERACION>
+			<OPERACION valor="203">BORRAR</OPERACION>
+			<OPERACION valor="205">MOVER</OPERACION>
+			<OPERACION valor="206">COMPRIMIR</OPERACION>
+			<OPERACION valor="208">PERMISOS</OPERACION>
+			<OPERACION valor="215">LISTAR-FIC</OPERACION>
+			<OPERACION valor="216">LISTAR-DIR</OPERACION>
+			<OPERACION valor="217">DESCOMPRIMIR</OPERACION>
+			<OPERACION valor="218">BORRAR-REC</OPERACION>
+		</OPERACIONES>
+	</USEREXIT>
+
+	<USEREXIT nombre="GCUFISAG">
+		<DESCRIPCION> 
+		Gestion de FILEDIR.SAG
+		</DESCRIPCION>
+		<LLAMADAS>
+			<CALL userexit="GCUFISAG"></CALL>	
+		</LLAMADAS>
+	</USEREXIT>
+
+	<SUBPROGRAMA nombre="GCNFICGE">
+		<DESCRIPCION> 
+		Subprograma para gestión de ficheros (operaciones)
+		</DESCRIPCION>
+		<LLAMADAS>
+		   <CALLNAT subprograma="GCNDBGEM"></CALLNAT>
+		   <CALL userexit="GCUFILES"></CALL>
+		 </LLAMADAS>
+	</SUBPROGRAMA>
+	
+	<SUBPROGRAMA nombre="GCNSDIFP">
+		<DESCRIPCION> 
+		Calcula numero diferencias en fichero SDIFF
+		</DESCRIPCION>
+		<LLAMADAS>
+		   <CALL userexit="GCUSDIFP"></CALL>
+		 </LLAMADAS>
+	</SUBPROGRAMA>
+
+	<SUBPROGRAMA nombre="GCNFISEL">
+		<DESCRIPCION> 
+		Subprograma para selección de ficheros en PC y copia de dichos ficheros
+		</DESCRIPCION>
+	</SUBPROGRAMA>
+	
+	<LOCAL nombre="GCLDOBJE">
+		<DDM nombre="GC-DE-OBJETOS" db="70" fnr="17"></DDM>
+	</LOCAL>
+	
+	<LOCAL nombre="GCLDSEGU">
+		<DDM nombre="GC-DE-SEGUIMIENTO" db="70" fnr="24"></DDM>
+	</LOCAL>
+	
+	<LOCAL nombre="GCLFISAG">
+		<DESCRIPCION>Definición del fichero plano de objetos creado con GCNFISAG</DESCRIPCION>
+	</LOCAL>
+	
+	<LOCAL nombre="GCLDAPLI">
+		<DDM nombre="GC-DE-APLICACIONES" db="70" fnr="19"></DDM>
+	</LOCAL>
+
+	<LOCAL nombre="GCLCTES">
+		<DESCRIPCION>Constantes de la libreria</DESCRIPCION>
+		<CONSTANTE nombre="GCLCTES-NUME-LIBRERIA">
+			<VALOR>GCTOOLS</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-NUME-CODIGO">
+			<VALOR>GENERAL</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-NUME-DESPLIEGUE">
+			<VALOR>DESPLIEGUE</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-NUME-OBJETOS">
+			<VALOR>OBJETOS</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-NUME-SEGUIMIENTO">
+			<VALOR>SEGUIMIENT</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-NUME-CICLICO">
+			<VALOR>CILCICO</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-SRC-DIR">
+			<VALOR>/PRD/apli/fuser63/</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-SEG-HIS-DIR">
+			<VALOR>/gctools/seguimiento/historico_modifica/</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-SEG-CTR-DIR" >
+			<VALOR>/gctools/seguimiento/control_calidad/</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-SEG-BAK-DIR">
+			<VALOR>/gctools/seguimiento/backup/</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-SEG-LOG-DIR">
+			<VALOR>/gctools/seguimiento/logs/</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-SEG-TMP-DIR">
+			<VALOR>/gctools/seguimiento/temp/</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-SEG-SRC-DIR" >
+			<VALOR>/gctools/seguimiento/codigo_fuente/</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-INF-COMPARA-ENT">
+			<VALOR>comparacion_entornos</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-INF-VALIDA-OBJ">
+			<VALOR>validacion_objetos</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-MAX-EXCLUIR">
+			<VALOR>1</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="GCLCTES-LIB-EXCLUIR">
+			<VALOR>PROTECT</VALOR>
+		</CONSTANTE>
+	</LOCAL>
+
+	<LOCAL nombre="APLCTES">
+		<DESCRIPCION>Constantes de la aplicacion</DESCRIPCION>
+		<CONSTANTE nombre="APLCTES-SERVICIO-SBA">
+			<VALOR>!!CAMBIAR!! ToDo</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="APLCTES-CONSEJERIA">
+			<VALOR>!!CAMBIAR!! ToDo</VALOR>
+		</CONSTANTE>
+	</LOCAL>
+	
+	<LOCAL nombre="GCLDECTE">
+		<DESCRIPCION>Constantes de la libreria</DESCRIPCION>
+		<CONSTANTE nombre="CTE-SIT-BORRADOR">
+			<VALOR>000</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-DESPL-PTE-PRE">
+			<VALOR>010</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-DESPL-PROC-PRE">
+			<VALOR>015</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-DESPL-EXITO-PRE">
+			<VALOR>020</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-DESPL-FALLIDO-PRE">
+			<VALOR>030</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-DESPL-PTE-PRO">
+			<VALOR>040</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-DESPL-PROC-PRO">
+			<VALOR>045</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-DESPL-EXITO-PRO">
+			<VALOR>050</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-DESPL-FALLIDO-PRO">
+			<VALOR>060</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-VUELTA-PTE-PRE (N3)">
+			<VALOR>070</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-VUELTA-PROC-PRE (N3)">
+			<VALOR>075</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-VUELTA-FALLIDA-PRE">
+			<VALOR>080</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-VUELTA-PTE-PRO">
+			<VALOR>090</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-VUELTA-PROC-PRO">
+			<VALOR>095</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-VUELTA-FALLIDA-PRO">
+			<VALOR>100</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-VUELTA-EXITO">
+			<VALOR>110</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-CANCELADO">
+			<VALOR>990</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-SIT-ERROR-GRAVE">
+			<VALOR>999</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-DIR-DESPLIEGUES">
+			<VALOR>PRD/apli/despliegues'</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-DIR-FUSER">
+			<VALOR>PRD/apli/fuser63</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-FICHERO-CODIGOS">
+			<VALOR>CODIGOS.TXT</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-FICHERO-CONSULTAS">
+			<VALOR>CONSULTAS.TXT</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-FICHERO-OPCIONES-CONSULTAS">
+			<VALOR>OPCIONESCONSULTAS.TXT</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-FICHERO-PLANTILLAS">
+			<VALOR>PLANTILLAS.TXT</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-FICHERO-GRUPOS">
+			<VALOR>GRUPOS.TXT</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-FICHERO-PROCESOS">
+			<VALOR>PROCESOS.TXT</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-FICHERO-GRUPOS-PROCESOS">
+			<VALOR>GRUPOSPROCESOS.TXT</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-DESPLIEGUE-PRE">
+			<VALOR>D2P</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-DESPLIEGUE-PRO">
+			<VALOR>P2P</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-VUELTA-A-PRE">
+			<VALOR>V2P</VALOR>
+		</CONSTANTE>
+		<CONSTANTE nombre="CTE-VUELTA-A-DES">
+			<VALOR>V2D</VALOR>
+		</CONSTANTE>
+	</LOCAL>
+	
+	<COPYCODE nombre="G3CMAPA">
+		<DESCRIPCION>Gestión del mapa</DESCRIPCION>
+	</COPYCODE>
+	
+	<COPYCODE nombre="G3CCONSU">
+		<DESCRIPCION>Consultas: Ganaderia ToDo</DESCRIPCION>
+	</COPYCODE>
+	
+	<COPYCODE nombre="UTCNAT00">
+		<DESCRIPCION>Consultas: Generico</DESCRIPCION>
+	</COPYCODE>
+	
+	<COPYCODE nombre="GCCDELOG">
+		<DESCRIPCION>Escritura en el fichero de LOG</DESCRIPCION>
+	</COPYCODE>
+	
+	<COPYCODE nombre="GCCDECOT">
+		<DESCRIPCION>Control transacciones</DESCRIPCION>
+	</COPYCODE>
+	
+	<COPYCODE nombre="XMCGEDOC">
+		<DESCRIPCION>XML Parser implementation</DESCRIPCION>
+	</COPYCODE>
+	
+	<COPYCODE nombre="YMCGEDOC">
+		<DESCRIPCION>XML Parser implementation</DESCRIPCION>
+	</COPYCODE>
+	
+	<HELPROUTINE nombre="GCHAPLI">
+		<DESCRIPCION>Helproutine de Aplicaciones</DESCRIPCION>
+	</HELPROUTINE>
+	
+	<HELPROUTINE nombre="GCHDGRP">
+		<DESCRIPCION>Helproutine de Grupos</DESCRIPCION>
+	</HELPROUTINE>
+	
+	<HELPROUTINE nombre="GCHDUSR">
+		<DESCRIPCION>Helproutine de Usuarios</DESCRIPCION>
+	</HELPROUTINE>
+	
+	<HELPROUTINE nombre="GCHMODU">
+		<DESCRIPCION>Helproutine de módulos</DESCRIPCION>
+	</HELPROUTINE>
+	
+	<MAP nombre="GCMAPLI1">
+		<DESCRIPCION>Datos aplicación</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMAUTO1">
+		<DESCRIPCION>Datos autorización</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMCAPLI">
+		<DESCRIPCION>Parametros consulta aplicación</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMCAUTO">
+		<DESCRIPCION>Parametros consulta autorizaciones</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMCDELE">
+		<DESCRIPCION>Parametros consulta delegaciones</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMCDESP">
+		<DESCRIPCION>Parametros consulta despliegues</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMCDGRP">
+		<DESCRIPCION>Parametros consulta grupos</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMCDUSR">
+		<DESCRIPCION>Parametros consulta usuarios</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMCMODU">
+		<DESCRIPCION>Parametros consulta modulos</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMCNATU">
+		<DESCRIPCION>Parametros consulta elementos Natural</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMCPROY">
+		<DESCRIPCION>Parametros consulta proyectos</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMDELE1">
+		<DESCRIPCION>Datos delegación</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMDESP1">
+		<DESCRIPCION>Datos despliegue 1 - 2</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMDESP2">
+		<DESCRIPCION>Datos despliegue 2 - 2</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMDGRP1">
+		<DESCRIPCION>Datos grupo</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMDUSR1">
+		<DESCRIPCION>Datos usuario</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMHDE">
+		<DESCRIPCION>Helproutine</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMMODU1">
+		<DESCRIPCION>Datos módulo</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMPASSW">
+		<DESCRIPCION>Pantalla cambio password</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMPROY1">
+		<DESCRIPCION>Datos del proyecto</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GCMSNATU">
+		<DESCRIPCION>Parametros consulta Elementos Natural</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="GTMLOCDU">
+		<DESCRIPCION>Buscar duplicados</DESCRIPCION>
+	</MAP>
+	
+	<MAP nombre="OLMPASSW">
+		<DESCRIPCION>Pantalla cambio password</DESCRIPCION>
+	</MAP>
+</GC-TOOLS>

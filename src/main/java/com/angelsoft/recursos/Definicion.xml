@@ -1,0 +1,1633 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TABLAS>
+	<TABLA ddm="GC-DE-DESPLIEGUES" db="070" fnr="059">
+		<DESCRIPCION>Despliegues</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="DESCRIPCION-CORTA" tipo="A" longitud="30" obligatorio="S">
+			<DESCRIPCION>Descripción corta</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="240" obligatorio="S">
+			<DESCRIPCION>Descripción</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="ID-APLICACION-AREA" tipo="N" longitud="11" obligatorio="S">
+			<DESCRIPCION>Aplicación asociada al despliegue</DESCRIPCION>
+			<FK tabla="GC-DE-APLICACIONES-AREA" campo="IDE"/>
+		</CAMPO>
+		<CAMPO nombre="ID-MODULO" tipo="N" longitud="11">
+			<DESCRIPCION>Módulo asociado al despliegue</DESCRIPCION>
+			<FK tabla="GC-DE-MODULOS" campo="IDE"/>
+		</CAMPO> 	
+		<CAMPO nombre="ID-PROYECTO" tipo="N" longitud="11">
+			<DESCRIPCION>Proyecto asociado al despliegue</DESCRIPCION>
+			<FK tabla="GC-DE-PROYECTOS" campo="IDE"/>
+		</CAMPO> 
+		<CAMPO nombre="CO-SITUACION" tipo="A" longitud="3" obligatorio="S">
+			<DESCRIPCION>Situación en la que se encuentra el Despliegue</DESCRIPCION>
+			<FK tabla="GC-DE-CO-SITUACION-DES" campo="CODIGO"/>
+		</CAMPO> 
+		<GRUPO-CAMPOS nombre="DATOS-DESPLIEGUE-A-PRE">
+			<CAMPO nombre="ID-US-DESPLIEGUE-PRE" tipo="N" longitud="11">
+				<DESCRIPCION>Usuario que solicita el Despliegue a PRE</DESCRIPCION>
+				<FK tabla="GC-DE-USUARIOS" campo="IDE"/>
+			</CAMPO>
+			<CAMPO nombre="HO-DESPLIEGUE-PRE-SOLICITUD" tipo="T">
+				<DESCRIPCION>Hora en la que se solicita el Despliegue a PRE</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="HO-DESPLIEGUE-PRE-INICIAR" tipo="T">
+				<DESCRIPCION>Hora en la que se desea que se inicie el Despliegue a PRE</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="HO-DESPLIEGUE-PRE-INICIO" tipo="T">
+				<DESCRIPCION>Hora en la que se inicia el Despliegue a PRE</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="HO-DESPLIEGUE-PRE-FIN" tipo="T">
+				<DESCRIPCION>Hora en la que se finaliza el Despliegue a PRE</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<GRUPO-CAMPOS nombre="DATOS-DESPLIEGUE-A-PRO">
+			<CAMPO nombre="ID-US-DESPLIEGUE-PRO" tipo="N" longitud="11">
+				<DESCRIPCION>Usuario que solicita el Despliegue a PRO</DESCRIPCION>
+				<FK tabla="GC-DE-USUARIOS" campo="IDE"/>
+			</CAMPO>
+			<CAMPO nombre="HO-DESPLIEGUE-PRO-SOLICITUD" tipo="T">
+				<DESCRIPCION>Hora en la que se solicita el Despliegue a PRO</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="HO-DESPLIEGUE-PRO-INICIAR" tipo="T">
+				<DESCRIPCION>Hora en la que se desea que se inicie el Despliegue a PRO</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="HO-DESPLIEGUE-PRO-INICIO" tipo="T">
+				<DESCRIPCION>Hora en la que se inicia el Despliegue a PRO</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="HO-DESPLIEGUE-PRO-FIN" tipo="T">
+				<DESCRIPCION>Hora en la que se finaliza el Despliegue a PRO</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<GRUPO-CAMPOS nombre="DATOS-VUELTA-ATRAS">
+			<CAMPO nombre="ID-US-VUELTA-ATRAS" tipo="N" longitud="11">
+				<DESCRIPCION>Usuario que solicita la vuelta atrás</DESCRIPCION>
+				<FK tabla="GC-DE-USUARIOS" campo="IDE"/>
+			</CAMPO>
+			<CAMPO nombre="HO-VUELTA-ATRAS-SOLICITUD" tipo="T">
+				<DESCRIPCION>Hora en la que se solicita la vuelta atrás</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="HO-VUELTA-ATRAS-INICIAR" tipo="T">
+				<DESCRIPCION>Hora en la que se quiere realizar la vuelta atrás</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="HO-VUELTA-ATRAS-PRE-INICIO" tipo="T">
+				<DESCRIPCION>Hora en la que se inicia la vuelta atrás en PRE</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="HO-VUELTA-ATRAS-PRE-FIN" tipo="T">
+				<DESCRIPCION>Hora en la que se finaliza la vuelta atrás en PRE</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="HO-VUELTA-ATRAS-PRO-INICIO" tipo="T">
+				<DESCRIPCION>Hora en la que se inicia la vuelta atrás en PRO</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="HO-VUELTA-ATRAS-PRO-FIN" tipo="T">
+				<DESCRIPCION>Hora en la que se finaliza la vuelta atrás en PRO</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<GRUPO-CAMPOS nombre="DATOS-ANULACION">
+			<CAMPO nombre="ID-US-ANULACION" tipo="N" longitud="11">
+				<DESCRIPCION>Usuario que Cancela es despliegue</DESCRIPCION>
+				<FK tabla="GC-DE-USUARIOS" campo="IDE"/>
+			</CAMPO>
+			<CAMPO nombre="HO-ANULACION-PRE" tipo="T">
+				<DESCRIPCION>Hora en la que se reaza la anulación en PRE</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="HO-ANULACION-PRO" tipo="T">
+				<DESCRIPCION>Hora en la que se reaza la anulación en PRO</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<GRUPO-CAMPOS nombre="DATOS-SERVICEDESK">
+			<CAMPO nombre="CO-SD-CAMBIO" tipo="N" longitud="10">
+				<DESCRIPCION>Identificador del Cambio en SD</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="CO-SD-OT" tipo="N" longitud="10">
+				<DESCRIPCION>Identificador de la Orden de Trabajo en SD</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="CO-SD-LLAMADA-SERVICIO" tipo="N" longitud="10">
+				<DESCRIPCION>Identificador de la Llamada de Servicio en SD</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-SITUACION-IDE">
+			<SUPER-DET campo="CO-SITUACION"/>
+			<SUPER-DET campo="IDE"/>
+		</SUPER>
+	</TABLA>
+	<TABLA ddm="GC-DE-ENTIDAD-NATU" db="070" fnr="060">
+		<DESCRIPCION>Entidades Natural implicadas en un despliegue</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
+			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-ESPECIFICOS">
+			<CAMPO nombre="ID-LIBRERIA" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Libreria en la que se encuentra *ID-LIBRARY</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="NOMBRE" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Nombre del objeto Natural</DESCRIPCION>
+			</CAMPO>	
+			<CAMPO nombre="NOMBRE-LARGO" tipo="A" longitud="60" obligatorio="S">
+				<DESCRIPCION>Nombre largo del objeto Natural</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="CO-TIPO-OBJETO-NAT" tipo="A" longitud="1" obligatorio="S">
+				<DESCRIPCION>Tipo de objeto Natural (Programa, Subprograma ....)</DESCRIPCION>
+				<FK tabla="GC-DE-CO-TIPO-OBJETO-NAT" campo="CODIGO"/>
+			</CAMPO>
+			<CAMPO nombre="SRC-FILESYSTEM" tipo="A" longitud="12" obligatorio="S">
+				<DESCRIPCION>Objeto Natural file System SRC</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="SRC-CRC" tipo="A" longitud="32" obligatorio="S">
+				<DESCRIPCION>Código de redundancia cíclica del fuente calculado en el momento de copiarlo</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="SRC-CRC-PRE" tipo="A" longitud="32" obligatorio="S">
+				<DESCRIPCION>Código de redundancia cíclica del fuente calculado de PreProducción en el momento de copiarlo</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="SRC-CRC-PRO" tipo="A" longitud="32" obligatorio="S">
+				<DESCRIPCION>Código de redundancia cíclica del fuente calculado de Producción en el momento de copiarlo</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="GP-FILESYSTEM" tipo="A" longitud="12" obligatorio="S">
+				<DESCRIPCION>Objeto Natural file System GP</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="GP-CRC" tipo="A" longitud="32" obligatorio="S">
+				<DESCRIPCION>Código de redundancia cíclica del compilado calculado en el momento de copiarlo</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="GP-CRC-PRE" tipo="A" longitud="32" obligatorio="S">
+				<DESCRIPCION>Código de redundancia cíclica del compilado de PreProducción calculado en el momento de copiarlo</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="GP-CRC-PRO" tipo="A" longitud="32" obligatorio="S">
+				<DESCRIPCION>Código de redundancia cíclica del compilado de Producción calculado en el momento de copiarlo</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<CAMPO nombre="CO-ACCION" tipo="A" longitud="2" obligatorio="S">
+			<DESCRIPCION>Acción a llevar a cabo con el objeto Natural (Crear, modificar ....)</DESCRIPCION>
+			<FK tabla="GC-DE-CO-ACCION-ENTIDAD" campo="CODIGO"/>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRO</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-DES-LIB-NOMBRE">
+			<SUPER-DET campo="ID-DESPLIEGUE"/>
+			<SUPER-DET campo="ID-LIBRERIA"/>
+			<SUPER-DET campo="NOMBRE"/>
+		</SUPER>
+		<SUPER nombre="SD2-LIB-NOMBRE-DES">
+			<SUPER-DET campo="ID-LIBRERIA"/>
+			<SUPER-DET campo="NOMBRE"/>
+			<SUPER-DET campo="ID-DESPLIEGUE"/>
+		</SUPER>
+	</TABLA>
+	<TABLA ddm="GC-DE-CO-SITUACION-DES" db="070" fnr="055">
+		<DESCRIPCION>Situaciones de un despliegue</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="CODIGO" tipo="A" longitud="3" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Código</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION-CORTA" tipo="A" longitud="9" unico="S" obligatorio="S">
+			<DESCRIPCION>Descripción corta del código, debe de ser descriptiva</DESCRIPCION>
+		</CAMPO>	
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="60" obligatorio="S">
+			<DESCRIPCION>Descripción del código</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="OBSERVACION" tipo="A" longitud="240">
+			<DESCRIPCION>Observaciones de la situación</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-CO-TIPO-OBJETO-NAT" db="070" fnr="058">
+		<DESCRIPCION>Tipos de Objetos Natural</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="CODIGO" tipo="A" longitud="1" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Código</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="60" obligatorio="S">
+			<DESCRIPCION>Descripción del código</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-CO-ACCION-ENTIDAD" db="070" fnr="054">
+		<DESCRIPCION>Acciones a llevar a cabo con una entidad relacionada con un despliegue</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="CODIGO" tipo="A" longitud="2" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Código</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="60" obligatorio="S">
+			<DESCRIPCION>Descripción del código</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-ENTIDAD-CONS" db="070" fnr="062">
+		<DESCRIPCION>Consultas Estandard implicadas en un despliegue</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" obligatorio="S">
+			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
+			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-ESPECIFICOS">
+			<CAMPO nombre="NOMBRE-CONSULTA" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Nombre de la consulta Standard, sin macro ni Usuario</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<CAMPO nombre="CO-ACCION" tipo="A" longitud="2" obligatorio="S">
+			<DESCRIPCION>Acción a llevar a cabo con la consulta Standard (Crear, modificar ....)</DESCRIPCION>
+			<FK tabla="GC-DE-CO-ACCION-ENTIDAD" campo="CODIGO"/>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRO</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-DESPLIEGUE-CONSULTA">
+			<SUPER-DET campo="ID-DESPLIEGUE"/>
+			<SUPER-DET campo="ID-CONSULTA"/>
+		</SUPER>
+		<SUPER nombre="SD2-CONSULTA-DESPLIEGUE">
+			<SUPER-DET campo="ID-CONSULTA"/>
+			<SUPER-DET campo="ID-DESPLIEGUE"/>		
+		</SUPER>	
+	</TABLA>
+	<TABLA ddm="GC-DE-ENTIDAD-CODI" db="070" fnr="061">
+		<DESCRIPCION>Códigos implicadas en un despliegue</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" obligatorio="S">
+			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
+			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-ESPECIFICOS">
+			<CAMPO nombre="ID-CODIGO" tipo="A" longitud="22" obligatorio="S">
+				<DESCRIPCION>Clave de la código del fichero de Códigos General</DESCRIPCION>
+				<REDEFINE>
+					<CAMPO nombre="ID-COD-APLICACION" tipo="A" longitud="2">
+						<DESCRIPCION>Identificador corto Libreria</DESCRIPCION>
+					</CAMPO>
+					<CAMPO nombre="ID-COD-PREFIJO" tipo="A" longitud="4">
+						<DESCRIPCION>Prefijo del código</DESCRIPCION>
+					</CAMPO>	
+					<CAMPO nombre="ID-COD-CODIGO" tipo="A" longitud="16">
+						<DESCRIPCION>Código</DESCRIPCION>
+					</CAMPO>	
+				</REDEFINE>
+				<FK tabla="CODIGOS" campo="CO-CLAVE"/>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<CAMPO nombre="CO-ACCION" tipo="A" longitud="2" obligatorio="S">
+			<DESCRIPCION>Acción a llevar a cabo con el Código (Crear, modificar ....)</DESCRIPCION>
+			<FK tabla="GC-DE-CO-ACCION-ENTIDAD" campo="CODIGO"/>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRO</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-DESPLIEGUE-CODIGO">
+			<SUPER-DET campo="ID-DESPLIEGUE"/>
+			<SUPER-DET campo="ID-CODIGO"/>
+		</SUPER>
+		<SUPER nombre="SD2-CODIGO-DESPLIEGUE">
+			<SUPER-DET campo="ID-CODIGO"/>
+			<SUPER-DET campo="ID-DESPLIEGUE"/>		
+		</SUPER>
+	</TABLA>
+	<TABLA ddm="GC-DE-ENTIDAD-PRTF" db="070" fnr="999">
+		<DESCRIPCION>Plantillas implicadas en un despliegue</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
+			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-ESPECIFICOS">
+			<CAMPO nombre="ID-PLANTILLA" tipo="A" longitud="14" obligatorio="S">
+				<DESCRIPCION>Identificador de la plantilla</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<CAMPO nombre="CO-ACCION" tipo="A" longitud="2" obligatorio="S">
+			<DESCRIPCION>Acción a llevar a cabo con la Plantilla (Crear, modificar ....)</DESCRIPCION>
+			<FK tabla="GC-DE-CO-ACCION-ENTIDAD" campo="CODIGO"/>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRO</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-ENTIDAD-PROC" db="070" fnr="999">
+		<DESCRIPCION>Opciones de Menú implicadas en un despliegue</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
+			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-ESPECIFICOS">
+			<CAMPO nombre="ID-PROCESO" tipo="A" longitud="13" obligatorio="S">
+				<DESCRIPCION>Identificador de la plantilla</DESCRIPCION>
+				<REDEFINE>
+					<CAMPO nombre="ID-PRO-APLICACION" tipo="A" longitud="8">
+						<DESCRIPCION>Identificador corto Libreria</DESCRIPCION>
+					</CAMPO>
+					<CAMPO nombre="ID-PRO-NUM-PROCESO" tipo="N" longitud="5">
+						<DESCRIPCION>Numero de proceso</DESCRIPCION>
+					</CAMPO>
+				</REDEFINE>
+				<FK tabla="PROCESOS-MENU" campo="CODIGO-PROCESO"/>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<CAMPO nombre="CO-ACCION" tipo="A" longitud="2" obligatorio="S">
+			<DESCRIPCION>Acción a llevar a cabo con la opción de Menú (Crear, modificar ....)</DESCRIPCION>
+			<FK tabla="GC-DE-CO-ACCION-ENTIDAD" campo="CODIGO"/>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRO</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-ENTIDAD-GRUP" db="070" fnr="999">
+		<DESCRIPCION>Grupos implicados en un despliegue</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
+			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-ESPECIFICOS">
+			<CAMPO nombre="ID-GRUPO" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Identificador del grupo de Usuarios en Códigos</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<CAMPO nombre="CO-ACCION" tipo="A" longitud="2" obligatorio="S">
+			<DESCRIPCION>Acción a llevar a cabo con el Grupo (Crear, modificar ....)</DESCRIPCION>
+			<FK tabla="GC-DE-CO-ACCION-ENTIDAD" campo="CODIGO"/>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRO</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-ENTIDAD-GRPR" db="070" fnr="999">
+		<DESCRIPCION>Permisos Menu implicadas en un despliegue</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
+			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-ESPECIFICOS">
+			<CAMPO nombre="ID-PLANTILLA" tipo="A" longitud="14" obligatorio="S">
+				<DESCRIPCION>Identificador de la plantilla</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<CAMPO nombre="CO-ACCION" tipo="A" longitud="2" obligatorio="S">
+			<DESCRIPCION>Acción a llevar a cabo con el permiso Grupo-Proceso (Crear, modificar ....)</DESCRIPCION>
+			<FK tabla="GC-DE-CO-ACCION-ENTIDAD" campo="CODIGO"/>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRO</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-ENTIDAD-XREF" db="070" fnr="999">
+		<DESCRIPCION>Referencias cruzadas implicadas en un despliegue</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
+			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-ESPECIFICOS">
+			<CAMPO nombre="ID-LIBRERIA" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Libreria en la que se encuentra</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="NOMBRE" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Nombre del objeto Natural</DESCRIPCION>
+			</CAMPO>	
+			<CAMPO nombre="CO-TIPO-OBJETO-NAT" tipo="A" longitud="1" obligatorio="S">
+				<DESCRIPCION>Tipo de objeto Natural (Programa, Subprograma ....)</DESCRIPCION>
+				<FK tabla="GC-DE-CO-TIPO-OBJETO-NAT" campo="CODIGO"/>
+			</CAMPO>
+			<CAMPO nombre="SRC-FILESYSTEM" tipo="A" longitud="12" obligatorio="S">
+				<DESCRIPCION>Objeto Natural file System SRC</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="GP-FILESYSTEM" tipo="A" longitud="12" obligatorio="S">
+				<DESCRIPCION>Objeto Natural file System GP</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<CAMPO nombre="CO-ACCION" tipo="A" longitud="2" obligatorio="S">
+			<DESCRIPCION>Acción a llevar a cabo con la referencia Cruzada (Crear, modificar ....)</DESCRIPCION>
+			<FK tabla="GC-DE-CO-ACCION-ENTIDAD" campo="CODIGO"/>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRO</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-CODIGO">
+			<DESCRIPCION>Podemos ver Todas las Referencias Cruzadas definidas en un despliegue ordenadas por libreria, tipo y nombre</DESCRIPCION>
+			<SUPER-DET campo="ID-DESPLIEGUE"/>
+			<SUPER-DET campo="ID-LIBRERIA"/>
+			<SUPER-DET campo="CO-TIPO-OBJETO-NAT"/>
+			<SUPER-DET campo="NOMBRE"/>
+		</SUPER>
+	</TABLA>
+	<TABLA ddm="GC-DE-ENTIDAD-REPL" db="070" fnr="999">
+		<DESCRIPCION>Objetos Natural a replicar implicados en un despliegue</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
+			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-ESPECIFICOS">
+			<CAMPO nombre="ID-LIBRERIA" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Libreria en la que se encuentra</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="NOMBRE" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Nombre del objeto Natural</DESCRIPCION>
+			</CAMPO>	
+			<CAMPO nombre="CO-TIPO-OBJETO-NAT" tipo="A" longitud="1" obligatorio="S">
+				<DESCRIPCION>Tipo de objeto Natural (Programa, Subprograma ....)</DESCRIPCION>
+				<FK tabla="GC-DE-CO-TIPO-OBJETO-NAT" campo="CODIGO"/>
+			</CAMPO>
+			<CAMPO nombre="ID-LIBRERIA-REPLICA" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Libreria en la cual replicar el compilado del objeto</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<CAMPO nombre="CO-ACCION" tipo="A" longitud="2" obligatorio="S">
+			<DESCRIPCION>Acción a llevar a cabo con la referencia Cruzada (Crear, modificar ....)</DESCRIPCION>
+			<FK tabla="GC-DE-CO-ACCION-ENTIDAD" campo="CODIGO"/>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-DESPLIEGUE-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza el Despliegue en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-VUELTA-A-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la vuelta atrás en PRO</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRE" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRE</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="HO-ANULACION-PRO" tipo="T">
+			<DESCRIPCION>Fecha y Hora en la que se realiza la anulación en PRO</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-CODIGO">
+			<DESCRIPCION>Podemos ver Implicaciones definidas en un despliegue ordenadas por libreria, tipo y nombre</DESCRIPCION>
+			<SUPER-DET campo="ID-DESPLIEGUE"/>
+			<SUPER-DET campo="ID-LIBRERIA"/>
+			<SUPER-DET campo="CO-TIPO-OBJETO-NAT"/>
+			<SUPER-DET campo="NOMBRE"/>
+		</SUPER>
+	</TABLA>
+	<TABLA ddm="GC-DE-ERRORES" db="070" fnr="999">
+		<DESCRIPCION>Errores en un despliegue</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
+			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
+		</CAMPO>
+		<CAMPO nombre="CO-TIPO-DESPLIEGUE" tipo="A" longitud="3" obligatorio="S">
+			<DESCRIPCION>Identificar el tipo de despliegue o vuelta atrás (D2E, E2O,...)</DESCRIPCION>
+			<FK tabla="GC-DE-CO-TIPO-DESPLIEGUE" campo="CODIGO"/>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="240" unico="S">
+			<DESCRIPCION>Descripción del Error</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="NAT-ERROR" tipo="N" longitud="5">
+			<DESCRIPCION>Código del error Natural</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="NAT-LINEA" tipo="N" longitud="4">
+			<DESCRIPCION>Línea del error Natural</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="NAT-STATUS" tipo="A" longitud="1">
+			<DESCRIPCION>Status del error Natural</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="NAT-PROGRAM" tipo="A" longitud="8">
+			<DESCRIPCION>Programa que causo el error Natural</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="NAT-NIVEL" tipo="N" longitud="2">
+			<DESCRIPCION>Nivel del error Natural</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-CODIGO">
+			<DESCRIPCION>Podemos ver Todas las Referencias Cruzadas definidas en un despliegue ordenadas por libreria, tipo y nombre</DESCRIPCION>
+			<SUPER-DET campo="ID-DESPLIEGUE"/>
+			<SUPER-DET campo="CO-TIPO-DESPLIEGUE"/>
+			<SUPER-DET campo="HO-CREACION"/>
+		</SUPER>
+	</TABLA>
+	<TABLA ddm="GC-DE-CO-TIPO-DESPLIEGUE" db="070" fnr="057">
+		<DESCRIPCION>Tipos de despliegue o vuelta atrás (D2P, P2P,...)</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="CODIGO" tipo="A" longitud="3" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Código</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="60" obligatorio="S">
+			<DESCRIPCION>Descripción del código</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-USUARIOS" db="070" fnr="013">
+		<DESCRIPCION>Usuarios de la aplicación de Promoción entre Entornos</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-USUARIO" tipo="A" longitud="8" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Id del Usuario</DESCRIPCION>
+			<FK tabla="USUARIOS" campo="USUARIO"/>
+		</CAMPO>
+		<CAMPO nombre="CO-TIPO-USUARIO" tipo="A" longitud="3" obligatorio="S">
+			<DESCRIPCION>Identificar el tipo de Usuario (Analista Gob, Analista SUMA ...)</DESCRIPCION>
+			<FK tabla="GC-DE-CO-TIPO-USUARIO" campo="CODIGO"/>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-CO-TIPO-USUARIO" db="070" fnr="048">
+		<DESCRIPCION>Identificar el tipo de Usuario (Analista Gob, Analista SUMA ...)</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="CODIGO" tipo="A" longitud="3" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Código</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="60" obligatorio="S">
+			<DESCRIPCION>Descripción del código</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-AREAS" db="070" fnr="050">
+		<DESCRIPCION>Areas o grupos en los que se agrupan las aplicaciones</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="DESCRIPCION-CORTA" tipo="A" longitud="30" obligatorio="S">
+			<DESCRIPCION>Descripción corta del Área</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="240" obligatorio="S">
+			<DESCRIPCION>Descripción del Área</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-AUTORIZACIONES" db="070" fnr="051">
+		<DESCRIPCION>Autorizaciones, identifica los usuarios de un área</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-AREA" tipo="N" longitud="11"  descriptor="S" obligatorio="S">
+			<DESCRIPCION>Área a la que se quiere dar autorización</DESCRIPCION>
+			<FK tabla="GC-DE-AREAS" campo="IDE"/>
+		</CAMPO>
+		<CAMPO nombre="ID-USUARIO" tipo="N" longitud="11"  descriptor="S" obligatorio="S">
+			<DESCRIPCION>Usuario al que se quiere dar autorización</DESCRIPCION>
+			<FK tabla="GC-DE-USUARIOS" campo="IDE"/>
+		</CAMPO>
+		<CAMPO nombre="CO-PERMISO" tipo="A" longitud="3" obligatorio="S">
+			<DESCRIPCION>Identificar el permiso que se da (VER, CRE, PRE ...)</DESCRIPCION>
+			<FK tabla="GC-DE-CO-PERMISO" campo="CODIGO"/>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-CO-PERMISO" db="070" fnr="052">
+		<DESCRIPCION>Identificar el permiso que se quiere dar (VER: Ver Despliegues, CRE: VER + Crear despliegues, ...)</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="CODIGO" tipo="A" longitud="3" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Código</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="60" obligatorio="S">
+			<DESCRIPCION>Descripción del código</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-DELEGACIONES" db="070" fnr="053">
+		<DESCRIPCION>Degelaciones de autorizaciones a otro usuario</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-AUTORIZACION" tipo="N" longitud="11"  descriptor="S" obligatorio="S">
+			<DESCRIPCION>Autorización que se quiere delegar</DESCRIPCION>
+			<FK tabla="GC-DE-AUTORIZACIONES" campo="IDE"/>
+		</CAMPO>
+		<CAMPO nombre="ID-USUARIO-DELEGADO" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+			<DESCRIPCION>Usuario en el que se delega</DESCRIPCION>
+			<FK tabla="GC-DE-USUARIOS" campo="IDE"/>
+		</CAMPO>
+		<CAMPO nombre="CO-PERMISO" tipo="A" longitud="3" obligatorio="S">
+			<DESCRIPCION>Identificar el permiso que se da (VER, CRE, PRE ...), no puede ser mayor que el de la autorización que se delega</DESCRIPCION>
+			<FK tabla="GC-DE-CO-PERMISO" campo="CODIGO"/>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="240" obligatorio="S">
+			<DESCRIPCION>Descripción del código</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="FC-INICIO" tipo="D" obligatorio="S">
+			<DESCRIPCION>Día que entra en vigor la delegación</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="FC-FIN" tipo="D" obligatorio="S">
+			<DESCRIPCION>Último día de la delegación</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-OBJETOS-A-REPLICAR" db="070" fnr="018">
+		<DESCRIPCION>Inventario de objetos que se deben de replicar a otra libreria. Mantenible por analistas</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<GRUPO-CAMPOS nombre="DATOS-ORIGEN">
+			<CAMPO nombre="ID-LIBRERIA" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Libreria en la que se encuentra</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="NOMBRE" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Nombre del objeto Natural</DESCRIPCION>
+			</CAMPO>	
+			<CAMPO nombre="CO-TIPO-OBJETO-NAT" tipo="A" longitud="1" obligatorio="S">
+				<DESCRIPCION>Tipo de objeto Natural (Programa, Subprograma ....)</DESCRIPCION>
+				<FK tabla="GC-DE-CO-TIPO-OBJETO-NAT" campo="CODIGO"/>
+			</CAMPO>
+		</GRUPO-CAMPOS>	
+		<GRUPO-CAMPOS nombre="DATOS-DESTINO">
+			<CAMPO nombre="ID-LIBRERIA-REPLICA" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Libreria en la que se debe copiar</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<CAMPO nombre="CO-TIPO-COPIA" tipo="A" longitud="1" obligatorio="S">
+			<DESCRIPCION>Que se debe de copiar del Elemento Natural (Fuente, Compilado, Ambos ....)</DESCRIPCION>
+			<FK tabla="GC-DE-CO-TIPO-COPIA" campo="CODIGO"/>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-CO-TIPO-COPIA" db="070" fnr="056">
+		<DESCRIPCION>Identificar lo que se puede copiar de un objeto Natural (Fuente, Compilado, Ambos ....)</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="CODIGO" tipo="A" longitud="1" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Código</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="60" obligatorio="S">
+			<DESCRIPCION>Descripción del código</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-APLICACIONES-AREA" db="070" fnr="049">
+		<DESCRIPCION>Aplicaciones de un Área. Los datos de la Aplicacion los tenemos en APLICACIONES</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-AREA" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+			<DESCRIPCION>Área</DESCRIPCION>
+			<FK tabla="GC-DE-AREAS" campo="IDE"/>
+		</CAMPO>
+		<CAMPO nombre="ID-CO-APLICACION" tipo="A" longitud="8" descriptor="S" obligatorio="S">
+			<DESCRIPCION>Aplicación declarada en los códigos del Gobierno</DESCRIPCION>
+			<FK tabla="APLICACIONES" campo="APLICACION"/>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-AREA-APLICACION">
+			<DESCRIPCION>Podemos ver las Aplicaciones/Areas ordernas por id del Área y nombre de la Aplicación</DESCRIPCION>
+			<SUPER-DET campo="ID-AREA"/>
+			<SUPER-DET campo="ID-CO-APLICACION"/>
+		</SUPER>
+	</TABLA>
+	<TABLA ddm="GC-DE-MODULOS" db="070" fnr="101">
+		<DESCRIPCION>Módulos de una Aplicación de un Área</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-APLICACION-AREA" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+			<DESCRIPCION>Área</DESCRIPCION>
+			<FK tabla="GC-DE-APLICACIONES-AREA" campo="IDE"/>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION-CORTA" tipo="A" longitud="30" obligatorio="S">
+			<DESCRIPCION>Descripción corta del Módulo</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="240" obligatorio="S">
+			<DESCRIPCION>Descripción del Módulo</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-PROYECTOS" db="070" fnr="102">
+		<DESCRIPCION>Proyectos de un Módulo</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-MODULO" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+			<DESCRIPCION>Módulo</DESCRIPCION>
+			<FK tabla="GC-DE-MODULOS" campo="IDE"/>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION-CORTA" tipo="A" longitud="30" obligatorio="S">
+			<DESCRIPCION>Descripción corta del Proyecto</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="240" obligatorio="S">
+			<DESCRIPCION>Descripción del Proyecto</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-DE-NUMERACIONES" db="070" fnr="023">
+		<DESCRIPCION>Almacena las numeraciones IDE de las tablas de la apliación</DESCRIPCION>
+		<CAMPO nombre="CLAVE" tipo="A" longitud="8" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="NUMERO" tipo="N" longitud="11" obligatorio="S">
+			<DESCRIPCION>Último numeración asignada para esa clave</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="LIMITE" tipo="N" longitud="11" obligatorio="S">
+			<DESCRIPCION>Límite de la numeración</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="240" obligatorio="S">
+			<DESCRIPCION>Descripción de la numeración</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-PARAMETROS" db="070" fnr="103">
+		<DESCRIPCION>Almacena información parametrizable por entorno</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO>	
+		<CAMPO nombre="CLAVE" tipo="A" longitud="30" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave identificadora</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="250" obligatorio="S">
+			<DESCRIPCION>Descripción del Parámetro</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-PARAMETROS-ENTORNO" db="070" fnr="104">
+		<DESCRIPCION>Almacena el valor de un parámetro en un entorno</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="ID-PARAMETRO" tipo="N" longitud="11" obligatorio="S">
+			<DESCRIPCION>Id del Parámetro</DESCRIPCION>
+			<FK tabla="GC-PARAMETROS" campo="IDE"/>
+		</CAMPO> 
+		<CAMPO nombre="MAQUINA" tipo="A" longitud="30" obligatorio="S">
+			<DESCRIPCION>Clave identificadora del ENTORNO</DESCRIPCION>
+			<FK tabla="GC-CO-ENTORNO" campo="CODIGO"/>
+		</CAMPO> 	
+		<CAMPO nombre="VALOR-ALFA" tipo="A" longitud="250" obligatorio="S">
+			<DESCRIPCION>Descripción</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-PARAMETRO-ENTORNO">
+			<DESCRIPCION>Podemos ver los parametros definidos, ordenados por ID parametros, maquina</DESCRIPCION>
+			<SUPER-DET campo="ID-PARAMETRO"/>
+			<SUPER-DET campo="MAQUINA"/>
+		</SUPER>
+	</TABLA>
+	<TABLA ddm="GC-CO-ENTORNO" db="070" fnr="105">
+		<DESCRIPCION>Identificar Entornos Natural (SENAPRO, SENADES ...)</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="CODIGO" tipo="A" longitud="30" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Código</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="DESCRIPCION" tipo="A" longitud="240" obligatorio="S">
+			<DESCRIPCION>Descripción del Entorno</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-CREACION" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que crea el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-CREACION" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que se crea el registro</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-MODIFICA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que realizó la ultima modificación</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-MODIFICA" tipo="T">
+				<DESCRIPCION>Hora en la que se realizó la ultima modificación</DESCRIPCION>
+			</CAMPO>
+			<CAMPO nombre="US-BAJA" tipo="A" longitud="8">
+				<DESCRIPCION>Usuario que da de baja el registro</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-BAJA" tipo="T">
+				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+	</TABLA>
+	<TABLA ddm="GC-PARAMETROS-ENTORNO-LOGS" db="070" fnr="999">
+		<DESCRIPCION>Registrará las llamadas hechas al UTNENTOR</DESCRIPCION>
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
+			<DESCRIPCION>Clave única</DESCRIPCION>
+		</CAMPO> 
+		<CAMPO nombre="ID-PARAMETRO" tipo="A" longitud="30" obligatorio="S" >
+			<DESCRIPCION>Id del Parámetro que se solicita</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="ENTORNO" tipo="A" longitud="30" obligatorio="S">
+			<DESCRIPCION>Entorno desde el que se llama</DESCRIPCION>
+			<FK tabla="GC-CO-ENTORNO" campo="CODIGO"/>
+		</CAMPO>
+		<CAMPO nombre="LIBRERIA" tipo="A" longitud="8" obligatorio="S">
+			<DESCRIPCION>LIBRARY-ID desde el que se llama</DESCRIPCION>
+		</CAMPO>
+		<CAMPO nombre="OBJETO" tipo="A" longitud="8" obligatorio="S">
+			<DESCRIPCION>Objeto que llama al UTNENTOR</DESCRIPCION>
+		</CAMPO>
+		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
+			<CAMPO nombre="US-ULTIMO-USO" tipo="A" longitud="8" obligatorio="S">
+				<DESCRIPCION>Usuario que realizó la ultima consulta con estos parámetros</DESCRIPCION>
+				<FK tabla="USUARIOS" campo="USUARIO"/>
+			</CAMPO>
+			<CAMPO nombre="HO-ULTIMO-USO" tipo="T" obligatorio="S">
+				<DESCRIPCION>Hora en la que realizó la ultima consulta con estos parámetros</DESCRIPCION>
+			</CAMPO>
+		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-PAR-ENT-LIB-OBJ-ID">
+			<DESCRIPCION>Podemos ver los parametros definidos, ordenados por Parametro, entorno, libreria y objeto llamador</DESCRIPCION>
+			<SUPER-DET campo="ID-PARAMETRO"/>
+			<SUPER-DET campo="ENTORNO"/>
+			<SUPER-DET campo="LIBRERIA"/>
+			<SUPER-DET campo="OBJETO"/>
+			<SUPER-DET campo="IDE"/>
+		</SUPER>
+	</TABLA>
+</TABLAS>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CabeceraReport" pageWidth="555" pageHeight="100" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ea2f7cd7-fb00-4720-a65c-a6d830ada89f">
+	<property name="ireport.zoom" value="1.2100000000000017"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="logoDerecha" class="java.lang.String"/>
+	<parameter name="logoIzquierda" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="100" splitType="Stretch">
+			<image>
+				<reportElement x="405" y="0" width="150" height="100" uuid="38003964-08a2-4fc7-9e79-b4666bcb880f"/>
+				<imageExpression><![CDATA[$P{logoDerecha}]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true" evaluationTime="Report">
+				<reportElement x="150" y="30" width="255" height="39" uuid="645d126e-807f-4671-8bae-b2faa17b8301"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="150" height="100" uuid="1e21a030-156e-45aa-9024-2da79573666a"/>
+				<imageExpression><![CDATA[$P{logoIzquierda}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+</jasperReport>

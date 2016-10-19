@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<NOTAS>
+	<NOTA entidad="Delegaciones">Al entrar en la aplicación se combrobará si hay delegaciones en curso para ese usuario, si existen, se muestran un aviso para que obre en consecuencia.</NOTA>
+	<NOTA entidad="Entidades Despliegue">Periodicamente se realizará una comprobación de objetos que existen en PRO y no en DES. En el caso de encontrar algo, se enviará un correo al responsable con el objeto de que solicite su borrado en un despliegue</NOTA>
+	<NOTA entidad="Objetos Natural">Deberiamos ver como reflejar de algún modo los elementos Natural que se usan en EntireX</NOTA>
+	<NOTA entidad="Despliegues">Si un despliegue que esta OK en PRO se quiere volver atras, antes hay que comprobar que ninguno de los elementos afectados haya estado implicado en un despliegue posterior que este en CURSO u OK.</NOTA>
+	<NOTA entidad="Despliegues"></NOTA>
+</NOTAS>
