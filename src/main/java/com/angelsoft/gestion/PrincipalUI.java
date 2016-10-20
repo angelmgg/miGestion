@@ -40,7 +40,8 @@ import com.vaadin.ui.themes.ValoTheme;
 @Widgetset("com.angelsoft.gestion.GestionWidgetset")
 public class PrincipalUI extends UI {
 
-	private List<Component> listaComponentes = new ArrayList<Component>();
+	private List<Component> listaComponentesGestion = new ArrayList<Component>();
+	private List<Component> listaComponentesNatural = new ArrayList<Component>();
 	
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = PrincipalUI.class)
@@ -54,12 +55,13 @@ public class PrincipalUI extends UI {
 		vLayout.setMargin(true);
 		setContent(vLayout);
 		
-		listaComponentes.add(new DdmListaForm(this));
-		listaComponentes.add(new NotaListaForm(this));
-		listaComponentes.add(new TareaListaForm(this));
-		listaComponentes.add(new InicializacionListaForm(this));
-		listaComponentes.add(new PreguntaListaForm(this));
-		listaComponentes.add(new LibreriaListaForm(this));
+		listaComponentesGestion.add(new DdmListaForm(this));
+		listaComponentesGestion.add(new NotaListaForm(this));
+		listaComponentesGestion.add(new TareaListaForm(this));
+		listaComponentesGestion.add(new InicializacionListaForm(this));
+		listaComponentesGestion.add(new PreguntaListaForm(this));
+		
+		listaComponentesNatural.add(new LibreriaListaForm(this));
 		
 		final HorizontalLayout hLayout = new HorizontalLayout();
 		Button botonImprimir = new Button("Imprime la página visible");
@@ -75,25 +77,39 @@ public class PrincipalUI extends UI {
 		hLayout.addComponent(barmenu);
 		hLayout.addComponent(botonImprimir);
 		
+		vLayout.addComponent(hLayout);
+		
 		MenuBar.Command mycommand = new MenuBar.Command() {
 		    public void menuSelected(MenuItem selectedItem) {
 		    	activaComponente(selectedItem.getText());
 		    }  
 		};
 		
-		MenuItem opciones = barmenu.addItem("Opciones", null, null);
-		vLayout.addComponent(hLayout);
-		
-		for (Component componente: listaComponentes){
+		MenuItem opciones = barmenu.addItem("De Gestión", null, null);
+		for (Component componente: listaComponentesGestion){
 			opciones.addItem(componente.getClass().getSimpleName(), null, mycommand);
 			vLayout.addComponent(componente);
 		}
 
+		MenuItem utilidades = barmenu.addItem("De Natural", null, null);
+		for (Component componente: listaComponentesNatural){
+			utilidades.addItem(componente.getClass().getSimpleName(), null, mycommand);
+			vLayout.addComponent(componente);
+		}
+		
 		activaComponente("");
 	}
 	
 	protected void activaComponente(String nombreComponente){
-		for (Component componente: listaComponentes){
+		for (Component componente: listaComponentesGestion){
+			if (nombreComponente.equalsIgnoreCase(componente.getClass().getSimpleName())){
+				componente.setVisible(true);
+			} else {
+				componente.setVisible(false);
+			}
+		}
+		
+		for (Component componente: listaComponentesNatural){
 			if (nombreComponente.equalsIgnoreCase(componente.getClass().getSimpleName())){
 				componente.setVisible(true);
 			} else {
