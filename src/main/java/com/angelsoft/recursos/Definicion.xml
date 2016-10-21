@@ -355,7 +355,7 @@
 	</TABLA>
 	<TABLA ddm="GC-DE-ENTIDAD-CONS" db="070" fnr="062">
 		<DESCRIPCION>Consultas Estandard implicadas en un despliegue</DESCRIPCION>
-		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
 			<DESCRIPCION>Clave única</DESCRIPCION>
 		</CAMPO> 
 		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" obligatorio="S">
@@ -423,7 +423,7 @@
 	</TABLA>
 	<TABLA ddm="GC-DE-ENTIDAD-CODI" db="070" fnr="061">
 		<DESCRIPCION>Códigos implicadas en un despliegue</DESCRIPCION>
-		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
 			<DESCRIPCION>Clave única</DESCRIPCION>
 		</CAMPO> 
 		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" obligatorio="S">
@@ -501,18 +501,26 @@
 			<SUPER-DET campo="ID-DESPLIEGUE"/>		
 		</SUPER>
 	</TABLA>
-	<TABLA ddm="GC-DE-ENTIDAD-PRTF" db="070" fnr="999">
+	<TABLA ddm="GC-DE-ENTIDAD-PRTF" db="070" fnr="063">
 		<DESCRIPCION>Plantillas implicadas en un despliegue</DESCRIPCION>
-		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
 			<DESCRIPCION>Clave única</DESCRIPCION>
 		</CAMPO> 
-		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" obligatorio="S">
 			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
 			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
 		</CAMPO>
 		<GRUPO-CAMPOS nombre="DATOS-ESPECIFICOS">
 			<CAMPO nombre="ID-PLANTILLA" tipo="A" longitud="14" obligatorio="S">
 				<DESCRIPCION>Identificador de la plantilla</DESCRIPCION>
+				<REDEFINE>
+					<CAMPO nombre="ID-PLA-NOMBRE" tipo="A" longitud="12">
+						<DESCRIPCION>Nombre de la plantilla</DESCRIPCION>
+					</CAMPO>
+					<CAMPO nombre="ID-PLA-VERSION" tipo="N" longitud="2">
+						<DESCRIPCION>Versión de la plantilla</DESCRIPCION>
+					</CAMPO>
+				</REDEFINE>
 			</CAMPO>
 		</GRUPO-CAMPOS>
 		<CAMPO nombre="CO-ACCION" tipo="A" longitud="2" obligatorio="S">
@@ -560,13 +568,21 @@
 				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
 			</CAMPO>
 		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-DESPLIEGUE-PLANTILLA">
+			<SUPER-DET campo="ID-DESPLIEGUE"/>
+			<SUPER-DET campo="ID-PLANTILLA"/>
+		</SUPER>
+		<SUPER nombre="SD2-PLANTILLA-DESPLIEGUE">
+			<SUPER-DET campo="ID-PLANTILLA"/>
+			<SUPER-DET campo="ID-DESPLIEGUE"/>		
+		</SUPER>
 	</TABLA>
-	<TABLA ddm="GC-DE-ENTIDAD-PROC" db="070" fnr="999">
+	<TABLA ddm="GC-DE-ENTIDAD-PROC" db="070" fnr="064">
 		<DESCRIPCION>Opciones de Menú implicadas en un despliegue</DESCRIPCION>
-		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
 			<DESCRIPCION>Clave única</DESCRIPCION>
 		</CAMPO> 
-		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" obligatorio="S">
 			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
 			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
 		</CAMPO>
@@ -629,13 +645,21 @@
 				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
 			</CAMPO>
 		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-DESPLIEGUE-PROCESO">
+			<SUPER-DET campo="ID-DESPLIEGUE"/>
+			<SUPER-DET campo="ID-PROCESO"/>
+		</SUPER>
+		<SUPER nombre="SD2-PROCESO-DESPLIEGUE">
+			<SUPER-DET campo="ID-PROCESO"/>
+			<SUPER-DET campo="ID-DESPLIEGUE"/>		
+		</SUPER>
 	</TABLA>
-	<TABLA ddm="GC-DE-ENTIDAD-GRUP" db="070" fnr="999">
+	<TABLA ddm="GC-DE-ENTIDAD-GRUP" db="070" fnr="065">
 		<DESCRIPCION>Grupos implicados en un despliegue</DESCRIPCION>
-		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
 			<DESCRIPCION>Clave única</DESCRIPCION>
 		</CAMPO> 
-		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" obligatorio="S">
 			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
 			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
 		</CAMPO>
@@ -689,10 +713,18 @@
 				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
 			</CAMPO>
 		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-DESPLIEGUE-GRUPO">
+			<SUPER-DET campo="ID-DESPLIEGUE"/>
+			<SUPER-DET campo="ID-GRUPO"/>
+		</SUPER>
+		<SUPER nombre="SD2-GRUPO-DESPLIEGUE">
+			<SUPER-DET campo="ID-GRUPO"/>
+			<SUPER-DET campo="ID-DESPLIEGUE"/>		
+		</SUPER>
 	</TABLA>
-	<TABLA ddm="GC-DE-ENTIDAD-GRPR" db="070" fnr="999">
+	<TABLA ddm="GC-DE-ENTIDAD-GRPR" db="070" fnr="066">
 		<DESCRIPCION>Permisos Menu implicadas en un despliegue</DESCRIPCION>
-		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
 			<DESCRIPCION>Clave única</DESCRIPCION>
 		</CAMPO> 
 		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
@@ -700,8 +732,20 @@
 			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
 		</CAMPO>
 		<GRUPO-CAMPOS nombre="DATOS-ESPECIFICOS">
-			<CAMPO nombre="ID-PLANTILLA" tipo="A" longitud="14" obligatorio="S">
-				<DESCRIPCION>Identificador de la plantilla</DESCRIPCION>
+			<CAMPO nombre="ID-GRU-APL-PROCESO" tipo="A" longitud="21" obligatorio="S">
+				<DESCRIPCION>Identificador del Grupo/Aplicacion/Proceso</DESCRIPCION>
+				<FK tabla="GRUPOS-PROCESOS" campo="GRUPO-PROCESO"/>
+				<REDEFINE>
+					<CAMPO nombre="ID-GAP-GRUPO" tipo="A" longitud="8">
+						<DESCRIPCION>Identificador del grupo</DESCRIPCION>
+					</CAMPO>
+					<CAMPO nombre="ID-GAP-APLICACION" tipo="A" longitud="8">
+						<DESCRIPCION>Identificador del la aplicación</DESCRIPCION>
+					</CAMPO>
+					<CAMPO nombre="ID-GAP-PROCESO" tipo="N" longitud="5">
+						<DESCRIPCION>Identificador del proceso</DESCRIPCION>
+					</CAMPO>
+				</REDEFINE>
 			</CAMPO>
 		</GRUPO-CAMPOS>
 		<CAMPO nombre="CO-ACCION" tipo="A" longitud="2" obligatorio="S">
@@ -749,13 +793,21 @@
 				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
 			</CAMPO>
 		</GRUPO-CAMPOS>
+		<SUPER nombre="SD1-DESPLIEGUE-GRAPPR">
+			<SUPER-DET campo="ID-DESPLIEGUE"/>
+			<SUPER-DET campo="ID-GRU-APL-PROCESO"/>
+		</SUPER>
+		<SUPER nombre="SD2-GRAPPR-DESPLIEGUE">
+			<SUPER-DET campo="ID-GRU-APL-PROCESO"/>
+			<SUPER-DET campo="ID-DESPLIEGUE"/>		
+		</SUPER>
 	</TABLA>
 	<TABLA ddm="GC-DE-ENTIDAD-XREF" db="070" fnr="999">
 		<DESCRIPCION>Referencias cruzadas implicadas en un despliegue</DESCRIPCION>
-		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
 			<DESCRIPCION>Clave única</DESCRIPCION>
 		</CAMPO> 
-		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" obligatorio="S">
 			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
 			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
 		</CAMPO>
@@ -822,20 +874,13 @@
 				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
 			</CAMPO>
 		</GRUPO-CAMPOS>
-		<SUPER nombre="SD1-CODIGO">
-			<DESCRIPCION>Podemos ver Todas las Referencias Cruzadas definidas en un despliegue ordenadas por libreria, tipo y nombre</DESCRIPCION>
-			<SUPER-DET campo="ID-DESPLIEGUE"/>
-			<SUPER-DET campo="ID-LIBRERIA"/>
-			<SUPER-DET campo="CO-TIPO-OBJETO-NAT"/>
-			<SUPER-DET campo="NOMBRE"/>
-		</SUPER>
 	</TABLA>
 	<TABLA ddm="GC-DE-ENTIDAD-REPL" db="070" fnr="999">
 		<DESCRIPCION>Objetos Natural a replicar implicados en un despliegue</DESCRIPCION>
-		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S">
+		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
 			<DESCRIPCION>Clave única</DESCRIPCION>
 		</CAMPO> 
-		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" descriptor="S" obligatorio="S">
+		<CAMPO nombre="ID-DESPLIEGUE" tipo="N" longitud="11" obligatorio="S">
 			<DESCRIPCION>IDE del despliegue del que depende</DESCRIPCION>
 			<FK tabla="GC-DE-DESPLIEGUES" campo="IDE"/>
 		</CAMPO>
@@ -846,6 +891,9 @@
 			<CAMPO nombre="NOMBRE" tipo="A" longitud="8" obligatorio="S">
 				<DESCRIPCION>Nombre del objeto Natural</DESCRIPCION>
 			</CAMPO>	
+			<CAMPO nombre="NOMBRE-LARGO" tipo="A" longitud="60" obligatorio="S">
+				<DESCRIPCION>Nombre largo del objeto Natural</DESCRIPCION>
+			</CAMPO>
 			<CAMPO nombre="CO-TIPO-OBJETO-NAT" tipo="A" longitud="1" obligatorio="S">
 				<DESCRIPCION>Tipo de objeto Natural (Programa, Subprograma ....)</DESCRIPCION>
 				<FK tabla="GC-DE-CO-TIPO-OBJETO-NAT" campo="CODIGO"/>
@@ -899,13 +947,6 @@
 				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
 			</CAMPO>
 		</GRUPO-CAMPOS>
-		<SUPER nombre="SD1-CODIGO">
-			<DESCRIPCION>Podemos ver Implicaciones definidas en un despliegue ordenadas por libreria, tipo y nombre</DESCRIPCION>
-			<SUPER-DET campo="ID-DESPLIEGUE"/>
-			<SUPER-DET campo="ID-LIBRERIA"/>
-			<SUPER-DET campo="CO-TIPO-OBJETO-NAT"/>
-			<SUPER-DET campo="NOMBRE"/>
-		</SUPER>
 	</TABLA>
 	<TABLA ddm="GC-DE-ERRORES" db="070" fnr="999">
 		<DESCRIPCION>Errores en un despliegue</DESCRIPCION>
@@ -1593,41 +1634,5 @@
 				<DESCRIPCION>Hora en la que se dio de baja</DESCRIPCION>
 			</CAMPO>
 		</GRUPO-CAMPOS>
-	</TABLA>
-	<TABLA ddm="GC-PARAMETROS-ENTORNO-LOGS" db="070" fnr="999">
-		<DESCRIPCION>Registrará las llamadas hechas al UTNENTOR</DESCRIPCION>
-		<CAMPO nombre="IDE" tipo="N" longitud="11" descriptor="S" unico="S" obligatorio="S">
-			<DESCRIPCION>Clave única</DESCRIPCION>
-		</CAMPO> 
-		<CAMPO nombre="ID-PARAMETRO" tipo="A" longitud="30" obligatorio="S" >
-			<DESCRIPCION>Id del Parámetro que se solicita</DESCRIPCION>
-		</CAMPO>
-		<CAMPO nombre="ENTORNO" tipo="A" longitud="30" obligatorio="S">
-			<DESCRIPCION>Entorno desde el que se llama</DESCRIPCION>
-			<FK tabla="GC-CO-ENTORNO" campo="CODIGO"/>
-		</CAMPO>
-		<CAMPO nombre="LIBRERIA" tipo="A" longitud="8" obligatorio="S">
-			<DESCRIPCION>LIBRARY-ID desde el que se llama</DESCRIPCION>
-		</CAMPO>
-		<CAMPO nombre="OBJETO" tipo="A" longitud="8" obligatorio="S">
-			<DESCRIPCION>Objeto que llama al UTNENTOR</DESCRIPCION>
-		</CAMPO>
-		<GRUPO-CAMPOS nombre="DATOS-AUDITORIA">
-			<CAMPO nombre="US-ULTIMO-USO" tipo="A" longitud="8" obligatorio="S">
-				<DESCRIPCION>Usuario que realizó la ultima consulta con estos parámetros</DESCRIPCION>
-				<FK tabla="USUARIOS" campo="USUARIO"/>
-			</CAMPO>
-			<CAMPO nombre="HO-ULTIMO-USO" tipo="T" obligatorio="S">
-				<DESCRIPCION>Hora en la que realizó la ultima consulta con estos parámetros</DESCRIPCION>
-			</CAMPO>
-		</GRUPO-CAMPOS>
-		<SUPER nombre="SD1-PAR-ENT-LIB-OBJ-ID">
-			<DESCRIPCION>Podemos ver los parametros definidos, ordenados por Parametro, entorno, libreria y objeto llamador</DESCRIPCION>
-			<SUPER-DET campo="ID-PARAMETRO"/>
-			<SUPER-DET campo="ENTORNO"/>
-			<SUPER-DET campo="LIBRERIA"/>
-			<SUPER-DET campo="OBJETO"/>
-			<SUPER-DET campo="IDE"/>
-		</SUPER>
 	</TABLA>
 </TABLAS>
